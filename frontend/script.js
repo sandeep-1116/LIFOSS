@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_URL = 'http://127.0.0.1:5000/api';
+    const API_URL = window.location.origin + '/api';
     const productGrid = document.getElementById('productGrid');
     const mainSearch = document.getElementById('mainSearch');
     const cartToggle = document.getElementById('cartToggle');
