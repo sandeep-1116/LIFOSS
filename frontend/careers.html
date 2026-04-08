@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | LIFOSS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="profile-body">
+    <style>
+        .profile-body { background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); background-size: 200% 200%; animation: gradientBG 15s ease infinite; font-family: 'Inter', sans-serif; min-height: 100vh; margin: 0; padding-bottom: 3rem; color: #212121; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .p-header { background: rgba(255,255,255,0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 30px rgba(0,0,0,0.05); border-bottom: 1px solid rgba(255,255,255,0.4); position: sticky; top: 0; z-index: 100; transition: 0.3s; }
+        .p-logo { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: #1e3a8a; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: -1px; }
+        .p-container { max-width: 1000px; margin: 3rem auto 0; padding: 0 2rem; }
+        .glass-panel { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 24px; padding: 3rem; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        
+        .careers-header { text-align: center; margin-bottom: 3rem; }
+        .careers-header h1 { font-family: 'Outfit', sans-serif; font-size: 3rem; font-weight: 800; color: #111; margin: 0; }
+        .careers-header p { font-size: 1.2rem; color: #555; margin-top: 10px; }
+        
+        .job-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .job-card { background: rgba(255,255,255,0.4); border-radius: 16px; padding: 1.8rem 2.2rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.6); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+        .job-card:hover { transform: scale(1.02); background: rgba(255,255,255,0.8); border-color: #3b82f6; box-shadow: 0 10px 30px rgba(59,130,246,0.1); }
+        
+        .job-info h3 { font-size: 1.25rem; font-weight: 800; color: #111; margin: 0 0 5px; }
+        .job-info p { color: #666; font-size: 0.95rem; margin: 0; display: flex; gap: 15px; }
+        .job-info span { display: flex; align-items: center; gap: 5px; }
+        
+        .apply-btn { background: #1e3a8a; color: white; border: none; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
+        .job-card:hover .apply-btn { background: #3b82f6; box-shadow: 0 5px 15px rgba(59,130,246,0.2); }
+        
+        .nav-footer { display: flex; justify-content: center; gap: 2rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); }
+        .nav-link { color: #1e3a8a; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .nav-link:hover { color: #3b82f6; }
+    </style>
+
+    <header class="p-header">
+        <a href="index.html" class="p-logo"><i class="fa-solid fa-shapes"></i> LIFOSS</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+    </header>
+
+    <div class="p-container">
+        <div class="glass-panel">
+            <div class="careers-header">
+                <h1>Build the Future of OS</h1>
+                <p>Join our mission to reinvent the digital lifestyle. We are looking for dreamers and doers.</p>
+            </div>
+            
+            <div class="job-list">
+                <div class="job-card">
+                    <div class="job-info">
+                        <h3>Senior Frontend Engineer</h3>
+                        <p><span><i class="fa-solid fa-location-dot"></i> Remote / Delhi</span> <span><i class="fa-solid fa-briefcase"></i> Full-time</span></p>
+                    </div>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+                
+                <div class="job-card">
+                    <div class="job-info">
+                        <h3>Product Designer (UX/UI)</h3>
+                        <p><span><i class="fa-solid fa-location-dot"></i> Bengaluru</span> <span><i class="fa-solid fa-briefcase"></i> Full-time</span></p>
+                    </div>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+                
+                <div class="job-card">
+                    <div class="job-info">
+                        <h3>Backend Architecture Lead</h3>
+                        <p><span><i class="fa-solid fa-location-dot"></i> Remote</span> <span><i class="fa-solid fa-briefcase"></i> Full-time</span></p>
+                    </div>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-info">
+                        <h3>Growth Marketing Manager</h3>
+                        <p><span><i class="fa-solid fa-location-dot"></i> Delhi</span> <span><i class="fa-solid fa-briefcase"></i> Full-time</span></p>
+                    </div>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+            </div>
+
+            <div class="nav-footer">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.from(".glass-panel", { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" });
+            gsap.from(".job-card", { scale: 0.9, opacity: 0, duration: 0.6, stagger: 0.1, delay: 0.4, ease: "back.out(1.7)" });
+        });
+    </script>
+</body>
+</html>

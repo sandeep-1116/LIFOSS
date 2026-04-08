@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFOSS Travel | Flights, Hotels & Hire</title>
+    <meta name="description"
+        content="Book flights, hotels, trains and buses with LIFOSS Travel. Best deals on domestic and international travel.">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* Override global fk-header styles for travel page */
+        .travel-page-body .fk-header {
+            background: rgba(5, 5, 20, 0.97) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .travel-page-body .fk-header .header-top-bar {
+            max-width: 100%;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            background: transparent !important;
+            border: none !important;
+            justify-content: flex-start;
+        }
+
+        .travel-page-body .fk-tabs {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .travel-page-body .tab {
+            padding: 0.55rem 1.4rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            color: rgba(255, 255, 255, 0.75);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 8px;
+            border: none;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .travel-page-body .tab:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .travel-page-body .tab.active {
+            color: white !important;
+            background: linear-gradient(135deg, #2874f0, #7c3aed) !important;
+            box-shadow: 0 4px 15px rgba(40, 116, 240, 0.4);
+        }
+
+        .travel-page-body .lifoss-logo {
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: white !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body.travel-page-body {
+            background: #0a0a1a;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* ── HERO ─────────────────────────────────────────── */
+        .travel-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+            transform: scale(1.1);
+            transition: transform 8s ease;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(10, 10, 26, 0.3) 0%,
+                    rgba(10, 10, 26, 0.55) 50%,
+                    rgba(10, 10, 26, 0.95) 100%);
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-20px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: #90caf9;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #90caf9 50%, #e040fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Animated Plane Route */
+        .plane-route {
+            position: absolute;
+            top: 30%;
+            left: -100px;
+            z-index: 5;
+            animation: flyPlane 12s linear infinite;
+        }
+
+        .plane-route i {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            filter: drop-shadow(0 0 20px rgba(144, 202, 249, 0.8));
+        }
+
+        @keyframes flyPlane {
+            0% {
+                left: -100px;
+                top: 35%;
+                transform: rotate(-15deg);
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            50% {
+                top: 20%;
+            }
+
+            95% {
+                opacity: 1;
+            }
+
+            100% {
+                left: calc(100vw + 100px);
+                top: 30%;
+                transform: rotate(-15deg);
+                opacity: 0;
+            }
+        }
+
+        /* Trail behind plane */
+        .plane-trail {
+            position: absolute;
+            top: 33%;
+            left: -100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(144, 202, 249, 0.6), transparent);
+            animation: flyTrail 12s linear infinite;
+            width: 200px;
+        }
+
+        @keyframes flyTrail {
+            0% {
+                left: -200px;
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            95% {
+                opacity: 1;
+            }
+
+            100% {
+                left: calc(100vw + 100px);
+                opacity: 0;
+            }
+        }
+
+        /* ── BOOKING WIDGET ────────────────────────────────── */
+        .booking-widget {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .booking-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px;
+            border-radius: 14px;
+        }
+
+        .b-tab {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .b-tab.active,
+        .b-tab:hover {
+            background: linear-gradient(135deg, #2874f0, #7c3aed);
+            color: white;
+            box-shadow: 0 4px 20px rgba(40, 116, 240, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .input-grp label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 8px;
+        }
+
+        .input-grp input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-grp input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .input-grp input:focus {
+            border-color: #2874f0;
+            background: rgba(40, 116, 240, 0.1);
+            box-shadow: 0 0 0 3px rgba(40, 116, 240, 0.2);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        .search-travel-btn {
+            padding: 0.9rem 2rem;
+            background: linear-gradient(135deg, #fb641b, #e74c3c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-travel-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) skewX(-20deg);
+            transition: left 0.4s;
+        }
+
+        .search-travel-btn:hover::before {
+            left: 150%;
+        }
+
+        .search-travel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(251, 100, 27, 0.4);
+        }
+
+        /* ── DESTINATIONS ──────────────────────────────────── */
+        .section-heading {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-heading .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #2874f0, #7c3aed);
+            padding: 5px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-heading h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .section-subtitle {
+            margin-top: 0.8rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #90caf9;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        .service-pills {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.2rem;
+        }
+
+        .service-pill {
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        /* ── TRAVEL CATEGORY BAR ────────────────────────────── */
+        .travel-cat-bar {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 0 4rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .travel-cat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            padding: 1.2rem 1.5rem;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            min-width: 100px;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            text-decoration: none;
+        }
+
+        .travel-cat-item:hover {
+            transform: translateY(-6px);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.25);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .travel-cat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: transform 0.3s;
+        }
+
+        .travel-cat-item:hover .travel-cat-icon {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        .travel-cat-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+            gap: 1.5rem;
+            padding: 0 4rem 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Goa - big left card spanning 2 rows */
+        .dest-card-large {
+            grid-row: span 2;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 660px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dest-card-large:hover {
+            transform: translateY(-8px) scale(1.01);
+        }
+
+        /* Goa card: dark overlay gradient (same as dest-card) */
+        .dest-card-large::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Goa image zoom on hover */
+        .dest-card-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .dest-card-large:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Goa dest-info slide up on hover */
+        .dest-card-large .dest-info {
+            transform: translateY(20px);
+        }
+        .dest-card-large:hover .dest-info {
+            transform: translateY(0);
+        }
+
+        /* Goa explore button reveal */
+        .dest-card-large:hover .dest-card-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Right column: 2x2 grid */
+        .dest-right-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .dest-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 310px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dest-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .dest-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .dest-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .dest-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.1) 60%, transparent 100%);
+        }
+
+        .dest-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            z-index: 2;
+            transform: translateY(20px);
+            transition: transform 0.4s;
+        }
+
+        .dest-card:hover .dest-info {
+            transform: translateY(0);
+        }
+
+        .dest-badge {
+            display: inline-block;
+            background: rgba(40, 116, 240, 0.9);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .dest-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .dest-price {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .dest-price span {
+            color: #ffd700;
+            font-weight: 700;
+        }
+
+        .dest-card-btn {
+            margin-top: 1rem;
+            padding: 8px 20px;
+            background: white;
+            color: #212121;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.85rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+        }
+
+        .dest-card:hover .dest-card-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── TRANSPORT SERVICES ────────────────────────────── */
+        .services-section {
+            padding: 2rem 4rem 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4rem 5rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            /* Always visible — GSAP animates IN from this baseline */
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(40, 116, 240, 0.15), rgba(124, 58, 237, 0.15));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(40, 116, 240, 0.4);
+            box-shadow: 0 20px 60px rgba(40, 116, 240, 0.2);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            transition: transform 0.4s;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(-10deg) scale(1.15);
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        .service-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, #fb641b, #e74c3c);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* ── RENT CARDS ────────────────────────────────────── */
+        .rent-section {
+            padding: 2rem 4rem 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .rent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4rem 5rem;
+        }
+
+        .rent-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            /* Always visible — GSAP animates IN, never permanently hides */
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rent-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(40, 116, 240, 0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .rent-card:hover::before {
+            opacity: 1;
+        }
+
+        .rent-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(40, 116, 240, 0.5);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .rent-tag {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .rent-card:nth-child(odd) .rent-tag {
+            background: rgba(40, 116, 240, 0.2);
+            color: #90caf9;
+        }
+
+        .rent-card:nth-child(even) .rent-tag {
+            background: rgba(251, 100, 27, 0.2);
+            color: #ffab72;
+        }
+
+        .rent-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            transition: transform 0.4s;
+        }
+
+        .rent-card:hover .rent-img {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .rent-card:nth-child(odd) .rent-img {
+            color: #90caf9;
+        }
+
+        .rent-card:nth-child(even) .rent-img {
+            color: #ffab72;
+        }
+
+        .rent-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .rent-card p {
+            font-size: 0.83rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .rent-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .rent-price span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .book-rent-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .book-rent-btn:hover {
+            background: #2874f0;
+            border-color: #2874f0;
+            box-shadow: 0 8px 25px rgba(40, 116, 240, 0.4);
+        }
+
+        /* ── OFFER BANNERS ─────────────────────────────────── */
+        .travel-offers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            padding: 0 4rem 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .offer-banner {
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .offer-banner:hover {
+            transform: translateY(-5px);
+        }
+
+        .offer-banner::before {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .offer-banner.blue {
+            background: linear-gradient(135deg, #1a237e, #2874f0);
+        }
+
+        .offer-banner.yellow {
+            background: linear-gradient(135deg, #5d1a00, #e65100);
+        }
+
+        .offer-banner.green {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+        }
+
+        .offer-banner.purple {
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+        }
+
+        .offer-info h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-info p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .code-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .code-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        /* ── STATS ─────────────────────────────────────────── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 0 4rem 5rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .stat-item:hover {
+            background: rgba(40, 116, 240, 0.1);
+        }
+
+        .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #90caf9, #e040fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 0.5rem;
+        }
+
+        /* ── FOOTER ────────────────────────────────────────── */
+        .travel-footer {
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem 4rem 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-inner h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 1rem;
+        }
+
+        .footer-inner a {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-inner a:hover {
+            color: white;
+        }
+
+        .footer-copy {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 2rem;
+        }
+
+        /* ── SCROLL HINT ───────────────────────────────────── */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px)
+            }
+        }
+
+        /* ── GLOWING ORBS ──────────────────────────────────── */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: #2874f0;
+            top: -200px;
+            right: -200px;
+            animation: orbFloat1 10s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #7c3aed;
+            bottom: 10%;
+            left: -100px;
+            animation: orbFloat2 14s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(-50px, 50px)
+            }
+        }
+
+        @keyframes orbFloat2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(50px, -50px)
+            }
+        }
+    </style>
+</head>
+
+<body class="travel-page-body">
+
+    <!-- Glowing Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- ── HEADER ── -->
+    <header class="fk-header"
+        style="background: rgba(10,10,26,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.08);">
+        <div class="header-top-bar">
+            <div class="header-main">
+                <div class="fk-tabs">
+                    <div class="tab lifoss-tab" onclick="window.location.href='index.html'" style="cursor:pointer;">
+                        <span class="lifoss-logo" style="color: white;">LIFOSS</span>
+                    </div>
+                    <div class="tab grocery-tab" onclick="window.location.href='grocery.html'"
+                        style="cursor:pointer; color: rgba(255,255,255,0.7);">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span>Grocery</span>
+                    </div>
+                    <div class="tab travel-tab active" style="color: white; border-bottom: 2px solid #90caf9;">
+                        <i class="fa-solid fa-plane"></i>
+                        <span>Travel</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── HERO SECTION ── -->
+    <section class="travel-hero">
+        <div class="hero-bg" id="heroBg"></div>
+
+        <!-- Particles -->
+        <div class="particles" id="particlesContainer"></div>
+
+        <!-- Animated Plane -->
+        <div class="plane-route" id="animPlane"><i class="fa-solid fa-plane"></i></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content" id="heroContent">
+            <div class="hero-eyebrow">
+                <i class="fa-solid fa-globe"></i>
+                Explore the World with LIFOSS Travel
+            </div>
+            <h1 class="hero-title" id="heroTitle">Fly Beyond<br>Boundaries</h1>
+            <p class="hero-subtitle">Book flights, hotels, trains and cabs in seconds.<br>The best travel deals, always
+                at your fingertips.</p>
+
+            <!-- Booking Widget -->
+            <div class="booking-widget" id="bookingWidget">
+                <div class="booking-tabs" id="bookingTabs">
+                    <button class="b-tab active" onclick="switchTab(this)"><i class="fa-solid fa-plane"></i>
+                        Flights</button>
+                    <button class="b-tab" onclick="switchTab(this)"><i class="fa-solid fa-hotel"></i> Hotels</button>
+                    <button class="b-tab" onclick="switchTab(this)"><i class="fa-solid fa-bus"></i> Bus</button>
+                    <button class="b-tab" onclick="switchTab(this)"><i class="fa-solid fa-train"></i> Trains</button>
+                    <button class="b-tab" onclick="switchTab(this)"><i class="fa-solid fa-car"></i> Cab</button>
+                </div>
+                <div class="booking-form">
+                    <div class="input-grp">
+                        <label>From</label>
+                        <input type="text" placeholder="Mumbai (BOM)" id="fromCity">
+                    </div>
+                    <div class="input-grp">
+                        <label>To</label>
+                        <input type="text" placeholder="Delhi (DEL)" id="toCity">
+                    </div>
+                    <div class="input-grp">
+                        <label>Depart Date</label>
+                        <input type="date" id="departDate">
+                    </div>
+                    <button class="search-travel-btn" onclick="animateSearch()">
+                        <i class="fa-solid fa-magnifying-glass"></i> SEARCH
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-hint">
+            <span>Scroll to Explore</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ── STATS BAR ── -->
+    <div class="stats-bar" id="statsBar">
+        <div class="stat-item">
+            <div class="stat-num" data-target="500">0</div>
+            <div class="stat-label">Airlines Partnered</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" data-target="12000">0</div>
+            <div class="stat-label">Destinations</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" data-target="50">0</div>
+            <div class="stat-label">Million Happy Travelers</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" data-target="24">0</div>
+            <div class="stat-label">x7 Customer Support</div>
+        </div>
+    </div>
+
+    <!-- ── TOP DESTINATIONS ── -->
+    <div class="section-heading">
+        <div class="tag">✈ Top Picks</div>
+        <h2>Trending Destinations</h2>
+    </div>
+
+    <div class="destinations-grid" id="destGrid">
+        <!-- Left: Big Goa card -->
+        <div class="dest-card-large">
+            <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1200&auto=format&fit=crop"
+                alt="Goa Beach" style="width:100%;height:100%;object-fit:cover;">
+            <div class="dest-info">
+                <span class="dest-badge">🏖 Beach Paradise</span>
+                <div class="dest-name">Goa, India</div>
+                <div class="dest-price">Flights from <span>₹2,499</span></div>
+                <button class="dest-card-btn">Explore Now →</button>
+            </div>
+        </div>
+        <!-- Right: 2x2 grid -->
+        <div class="dest-right-col">
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?q=80&w=800&auto=format&fit=crop"
+                    alt="Bali" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;">
+                <div class="dest-info">
+                    <span class="dest-badge">🌴 Island Life</span>
+                    <div class="dest-name">Bali, Indonesia</div>
+                    <div class="dest-price">From <span>₹18,999</span></div>
+                    <button class="dest-card-btn">Explore Now →</button>
+                </div>
+            </div>
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1549144511-f099e773c147?q=80&w=800&auto=format&fit=crop"
+                    alt="Manali" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;">
+                <div class="dest-info">
+                    <span class="dest-badge">🏔 Mountain Escape</span>
+                    <div class="dest-name">Manali, India</div>
+                    <div class="dest-price">From <span>₹7,999</span></div>
+                    <button class="dest-card-btn">Explore Now →</button>
+                </div>
+            </div>
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?q=80&w=800&auto=format&fit=crop"
+                    alt="Dubai" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;">
+                <div class="dest-info">
+                    <span class="dest-badge">🌆 City of Gold</span>
+                    <div class="dest-name">Dubai, UAE</div>
+                    <div class="dest-price">From <span>₹14,499</span></div>
+                    <button class="dest-card-btn">Explore Now →</button>
+                </div>
+            </div>
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1555993539-1732b0258235?q=80&w=800&auto=format&fit=crop"
+                    alt="Paris" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;">
+                <div class="dest-info">
+                    <span class="dest-badge">🗼 City of Love</span>
+                    <div class="dest-name">Paris, France</div>
+                    <div class="dest-price">From <span>₹42,999</span></div>
+                    <button class="dest-card-btn">Explore Now →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading">
+        <div class="tag">🚀 Our Services</div>
+        <h2>How Do You Want to Travel?</h2>
+        <span class="section-subtitle">8 ways to explore the world with LIFOSS Travel</span>
+        <div class="travel-cat-bar">
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#1a237e,#2874f0);">✈️</div>
+                <span class="travel-cat-label">Flights</span>
+            </a>
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#880e4f,#e91e63);">🏨</div>
+                <span class="travel-cat-label">Hotels</span>
+            </a>
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#1b5e20,#4caf50);">🚂</div>
+                <span class="travel-cat-label">Trains</span>
+            </a>
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#e65100,#ff9800);">🚌</div>
+                <span class="travel-cat-label">Buses</span>
+            </a>
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#4a148c,#e040fb);">🏝️</div>
+                <span class="travel-cat-label">Packages</span>
+            </a>
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#006064,#00bcd4);">🛳️</div>
+                <span class="travel-cat-label">Cruises</span>
+            </a>
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#bf360c,#ff7043);">🛂</div>
+                <span class="travel-cat-label">Visa</span>
+            </a>
+            <a class="travel-cat-item" href="#">
+                <div class="travel-cat-icon" style="background:linear-gradient(135deg,#1a237e,#42a5f5);">🛡️</div>
+                <span class="travel-cat-label">Insurance</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="services-section">
+        <div class="services-grid" id="servicesGrid">
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #1a237e, #2874f0);">✈️</div>
+                <h3>Flights</h3>
+                <p>Domestic & International. Best fares guaranteed.</p>
+                <span class="service-badge">Flat 15% Off</span>
+            </div>
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #880e4f, #e91e63);">🏨</div>
+                <h3>Hotels</h3>
+                <p>5-Star to Boutique. 1M+ properties worldwide.</p>
+                <span class="service-badge">₹1000 Off</span>
+            </div>
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #1b5e20, #4caf50);">🚂</div>
+                <h3>Trains</h3>
+                <p>Book IRCTC tickets hassle-free, instantly.</p>
+                <span class="service-badge">No Conv. Fee</span>
+            </div>
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #e65100, #ff9800);">🚌</div>
+                <h3>Buses</h3>
+                <p>500+ operators. AC, Sleeper & Luxury buses.</p>
+                <span class="service-badge">10% Cashback</span>
+            </div>
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #4a148c, #e040fb);">🏝️</div>
+                <h3>Holiday Packages</h3>
+                <p>All-inclusive trips — flights, hotels & sightseeing bundled.</p>
+                <span class="service-badge">Save ₹8,000</span>
+            </div>
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #006064, #00bcd4);">🛳️</div>
+                <h3>Cruises</h3>
+                <p>Luxury ocean & river cruises across Asia, Europe & beyond.</p>
+                <span class="service-badge">Early Bird Deal</span>
+            </div>
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #bf360c, #ff7043);">🛂</div>
+                <h3>Visa Services</h3>
+                <p>Fast-track visa assistance for 50+ countries. Guaranteed.</p>
+                <span class="service-badge">48Hr Processing</span>
+            </div>
+            <div class="service-card">
+                <div class="service-icon" style="background: linear-gradient(135deg, #1a237e, #42a5f5);">🛡️</div>
+                <h3>Travel Insurance</h3>
+                <p>Comprehensive coverage — medical, trip cancellation & more.</p>
+                <span class="service-badge">From ₹299</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── VEHICLE RENTAL ── -->
+    <div class="section-heading">
+        <div class="tag">🚗 Rent &amp; Ride</div>
+        <h2>Bike &amp; Car Rental</h2>
+        <span class="section-subtitle">Self-drive &amp; chauffeur rides across India</span>
+        <div class="service-pills" style="margin-top:1rem;">
+            <span class="service-pill" style="background:rgba(40,116,240,0.15);border-color:rgba(40,116,240,0.4);color:#90caf9;">⚡ Instant Booking</span>
+            <span class="service-pill" style="background:rgba(76,175,80,0.15);border-color:rgba(76,175,80,0.4);color:#a5d6a7;">✓ Free Cancellation</span>
+            <span class="service-pill" style="background:rgba(255,152,0,0.15);border-color:rgba(255,152,0,0.4);color:#ffcc80;">📍 GPS Included</span>
+            <span class="service-pill" style="background:rgba(233,30,99,0.15);border-color:rgba(233,30,99,0.4);color:#f48fb1;">🛵 5,000+ Vehicles</span>
+            <span class="service-pill" style="background:rgba(0,188,212,0.15);border-color:rgba(0,188,212,0.4);color:#80deea;">✈️ Airport Pickup</span>
+        </div>
+    </div>
+
+    <!-- Perks Strip -->
+    <div style="display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;padding:0 4rem 2rem;max-width:1400px;margin:0 auto;">
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:0.9rem 1.2rem;flex:1;min-width:160px;">
+            <span style="font-size:1.8rem;">🚗</span>
+            <div><div style="font-weight:700;font-size:0.9rem;color:white;">5,000+ Vehicles</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Cars, Bikes, Vans &amp; more</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:0.9rem 1.2rem;flex:1;min-width:160px;">
+            <span style="font-size:1.8rem;">📍</span>
+            <div><div style="font-weight:700;font-size:0.9rem;color:white;">GPS Tracking</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Live location on every ride</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:0.9rem 1.2rem;flex:1;min-width:160px;">
+            <span style="font-size:1.8rem;">🚪</span>
+            <div><div style="font-weight:700;font-size:0.9rem;color:white;">Doorstep Delivery</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Vehicle at your hotel or home</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:0.9rem 1.2rem;flex:1;min-width:160px;">
+            <span style="font-size:1.8rem;">🏟️</span>
+            <div><div style="font-weight:700;font-size:0.9rem;color:white;">Fully Insured</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Zero liability for the rider</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:0.9rem 1.2rem;flex:1;min-width:160px;">
+            <span style="font-size:1.8rem;">📞</span>
+            <div><div style="font-weight:700;font-size:0.9rem;color:white;">24x7 Support</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Help whenever you need it</div></div>
+        </div>
+    </div>
+
+    <div class="rent-section">
+        <div class="rent-grid" id="rentGrid">
+            <div class="rent-card">
+                <div class="rent-tag">Car Rent</div>
+                <div class="rent-img"><i class="fa-solid fa-car"></i></div>
+                <h3>Luxury SUV – X5</h3>
+                <p>Comfort for the whole family</p>
+                <div class="rent-price">₹2,500 <span>/ day</span></div>
+                <button class="book-rent-btn">Book Now</button>
+            </div>
+            <div class="rent-card">
+                <div class="rent-tag">Bike Rent</div>
+                <div class="rent-img"><i class="fa-solid fa-motorcycle"></i></div>
+                <h3>Sports Bike R1</h3>
+                <p>Speed and thrill on two wheels</p>
+                <div class="rent-price">₹800 <span>/ day</span></div>
+                <button class="book-rent-btn">Book Now</button>
+            </div>
+            <div class="rent-card">
+                <div class="rent-tag">Car Rent</div>
+                <div class="rent-img"><i class="fa-solid fa-car-side"></i></div>
+                <h3>Sedan Comfort</h3>
+                <p>Smooth city and highway rides</p>
+                <div class="rent-price">₹1,500 <span>/ day</span></div>
+                <button class="book-rent-btn">Book Now</button>
+            </div>
+            <div class="rent-card">
+                <div class="rent-tag">Bike Rent</div>
+                <div class="rent-img"><i class="fa-solid fa-moped"></i></div>
+                <h3>Cruiser 350cc</h3>
+                <p>Classic long drives, pure freedom</p>
+                <div class="rent-price">₹1,200 <span>/ day</span></div>
+                <button class="book-rent-btn">Book Now</button>
+            </div>
+            <div class="rent-card">
+                <div class="rent-tag">Eco Ride</div>
+                <div class="rent-img"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Electric Scooter</h3>
+                <p>Zero emission city rides, fully charged</p>
+                <div class="rent-price">₹499 <span>/ day</span></div>
+                <button class="book-rent-btn">Book Now</button>
+            </div>
+            <div class="rent-card">
+                <div class="rent-tag">Group Van</div>
+                <div class="rent-img"><i class="fa-solid fa-van-shuttle"></i></div>
+                <h3>Tempo Traveller</h3>
+                <p>12-seater for family &amp; group tours</p>
+                <div class="rent-price">₹5,500 <span>/ day</span></div>
+                <button class="book-rent-btn">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rental Promo Banner -->
+    <div style="max-width:1400px;margin:0 auto 2rem;padding:0 4rem;">
+        <div style="background:linear-gradient(135deg,#1a237e,#7c3aed,#2874f0);border-radius:24px;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+            <div>
+                <div style="display:inline-block;background:rgba(255,255,255,0.2);padding:4px 14px;border-radius:50px;font-size:0.75rem;font-weight:700;letter-spacing:1px;margin-bottom:0.8rem;">🎉 LIMITED OFFER</div>
+                <h3 style="font-size:1.6rem;font-weight:800;margin-bottom:0.4rem;">Get 20% Off Your First Self-Drive Rental</h3>
+                <p style="color:rgba(255,255,255,0.8);font-size:0.9rem;">Use code below at checkout. Valid on all vehicles above ₹999/day.</p>
+            </div>
+            <button class="code-btn" onclick="copyCode(this,'LIFRIDER')" style="font-size:1rem;padding:12px 28px;letter-spacing:2px;">LIFRIDER</button>
+        </div>
+    </div>
+
+        <!-- ── OFFERS ── -->
+    <div class="section-heading">
+        <div class="tag">💸 Exclusive Deals</div>
+        <h2>Travel Offers & Coupons</h2>
+    </div>
+
+    <div class="travel-offers" style="max-width:1400px; margin-bottom:5rem;">
+        <div class="offer-banner blue">
+            <div class="offer-info">
+                <h3>GET 25% OFF</h3>
+                <p>On your first International Flight booking</p>
+            </div>
+            <button class="code-btn" onclick="copyCode(this,'LIFTRAVEL25')">LIFTRAVEL25</button>
+        </div>
+        <div class="offer-banner yellow">
+            <div class="offer-info">
+                <h3>HOTEL DEALS</h3>
+                <p>Flat ₹1000 Off on 5-Star Hotel Stays</p>
+            </div>
+            <button class="code-btn" onclick="copyCode(this,'STAYGOLD')">STAYGOLD</button>
+        </div>
+        <div class="offer-banner green">
+            <div class="offer-info">
+                <h3>TRAIN OFFER</h3>
+                <p>No Convenience Fee on Tatkal Bookings</p>
+            </div>
+            <button class="code-btn" onclick="copyCode(this,'LIFTRAIN')">LIFTRAIN</button>
+        </div>
+        <div class="offer-banner purple">
+            <div class="offer-info">
+                <h3>CAB RIDE</h3>
+                <p>₹200 Off on First 3 Airport Cab Bookings</p>
+            </div>
+            <button class="code-btn" onclick="copyCode(this,'LIFCAB200')">LIFCAB200</button>
+        </div>
+    </div>
+
+    <!-- ── SEARCH RESULTS ── -->
+    <div id="search-results-section" class="search-results-wrapper" style="display: none; padding-bottom: 5rem; background: rgba(10,10,26,0.6); backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="section-heading" style="padding-top: 5rem;">
+            <div class="tag">🎯 Search Results</div>
+            <h2 style="color: white; font-size: 2.8rem;">Best Deals for Your Trip</h2>
+            <p id="search-info-text" style="color:#90caf9; margin-top:1rem; font-size:1.1rem; font-weight: 600;"></p>
+        </div>
+
+        <div class="results-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width:1400px; margin: 0 auto; padding: 0 4rem 5rem;">
+            <!-- Flight Result -->
+            <div class="result-card flight-res" style="opacity:1; visibility:visible; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; transition: all 0.4s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <div style="font-size: 0.85rem; color: #90caf9; margin-bottom: 1rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px;">✈️ Indian Airline</div>
+                <h3 style="font-size: 1.6rem; margin-bottom: 1.2rem; color: white; font-weight: 800;">Premium Air Travel</h3>
+                <p style="font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.7; flex-grow: 1;">Direct & connecting flights available from <strong class="res-from" style="color:white;"></strong> to <strong class="res-to" style="color:white;"></strong>.</p>
+                <a href="https://www.airindia.in/" target="_blank" class="book-rent-btn" style="text-decoration: none; text-align: center; background: #2874f0; border-color: #2874f0; padding: 1rem; font-weight: 700; border-radius: 12px;">Book on Air India</a>
+            </div>
+
+            <!-- Train Result -->
+            <div class="result-card train-res" style="opacity:1; visibility:visible; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; transition: all 0.4s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <div style="font-size: 0.85rem; color: #a5d6a7; margin-bottom: 1rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px;">🚂 Find My Train</div>
+                <h3 style="font-size: 1.6rem; margin-bottom: 1.2rem; color: white; font-weight: 800;">Indian Railways</h3>
+                <p style="font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.7; flex-grow: 1;">Check seat availability for <strong class="res-date" style="color:white;"></strong>. Fast & secure bookings.</p>
+                <a href="https://www.irctc.co.in/" target="_blank" class="book-rent-btn" style="text-decoration: none; text-align: center; border-color: #a5d6a7; color: #a5d6a7; padding: 1rem; font-weight: 700; border-radius: 12px;">Book IRCTC</a>
+            </div>
+
+            <!-- Bus Result -->
+            <div class="result-card bus-res" style="opacity:1; visibility:visible; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; transition: all 0.4s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <div style="font-size: 0.85rem; color: #ffcc80; margin-bottom: 1rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px;">🚌 All India Transport</div>
+                <h3 style="font-size: 1.6rem; margin-bottom: 1.2rem; color: white; font-weight: 800;">Luxury Bus Service</h3>
+                <p style="font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.7; flex-grow: 1;">Volvo, AC & Sleeper buses heading to <strong class="res-to" style="color:white;"></strong>. Best seat guarantee.</p>
+                <a href="https://www.redbus.in/" target="_blank" class="book-rent-btn" style="text-decoration: none; text-align: center; border-color: #ffcc80; color: #ffcc80; padding: 1rem; font-weight: 700; border-radius: 12px;">Book redBus</a>
+            </div>
+
+            <!-- Cab Result -->
+            <div class="result-card cab-res" style="opacity:1; visibility:visible; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; transition: all 0.4s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <div style="font-size: 0.85rem; color: #ce93d8; margin-bottom: 1rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px;">🚕 Cabs & Taxis</div>
+                <h3 style="font-size: 1.6rem; margin-bottom: 1.2rem; color: white; font-weight: 800;">Ride Sharing</h3>
+                <p style="font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.7; flex-grow: 1;">Instant pickups in <strong class="res-from" style="color:white;"></strong>. Affordable & reliable rides.</p>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                    <a href="https://www.olacabs.com/" target="_blank" class="book-rent-btn" style="text-decoration: none; text-align: center; padding: 0.8rem; font-size: 0.85rem; border-radius: 10px;">OLA</a>
+                    <a href="https://www.uber.com/in/en/" target="_blank" class="book-rent-btn" style="text-decoration: none; text-align: center; padding: 0.8rem; font-size: 0.85rem; border-radius: 10px;">UBER</a>
+                    <a href="https://odishayatri.com/" target="_blank" class="book-rent-btn" style="text-decoration: none; text-align: center; padding: 0.8rem; font-size: 0.85rem; grid-column: span 2; border-color: #ce93d8; color: #ce93d8; border-radius: 10px;">Odisha Yatri</a>
+                </div>
+            </div>
+
+            <!-- Hotel Result -->
+            <div class="result-card hotel-res" style="opacity:1; visibility:visible; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; transition: all 0.4s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <div style="font-size: 0.85rem; color: #f48fb1; margin-bottom: 1rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px;">🏨 OYO Stays</div>
+                <h3 style="font-size: 1.6rem; margin-bottom: 1.2rem; color: white; font-weight: 800;">Budget & Premium Hotels</h3>
+                <p style="font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.7; flex-grow: 1;">Top-rated OYO rooms available near <strong class="res-to" style="color:white;"></strong>. Clean & safe stays.</p>
+                <a href="https://www.oyorooms.com/" target="_blank" class="book-rent-btn" style="border-color: #f48fb1; color: #f48fb1; padding: 1rem; border-radius: 12px; font-weight: 700; text-decoration: none; text-align: center;">Book OYO</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="travel-footer">
+        <div class="footer-inner">
+            <div>
+                <h4>About LIFOSS Travel</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Careers</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <a href="support.html">24x7 Customer Care</a>
+                <a href="payments.html">Payments</a>
+                <a href="shipping.html">Shipping</a>
+                <a href="returns.html">Returns</a>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <a href="#">Flights</a>
+                <a href="#">Hotels</a>
+                <a href="#">Trains & Bus</a>
+                <a href="#">Car & Bike Hire</a>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <a href="#">travel@lifoss.com</a>
+                <a href="#">Toll Free: 1800-440-500</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter / X</a>
+            </div>
+        </div>
+        <div class="footer-copy">© 2026 LIFOSS Travel Services. All rights reserved.</div>
+    </footer>
+
+    <script>
+        // ── Security Check: Restricted Access ──
+        (function checkAccess() {
+            const user = localStorage.getItem('lifoss_user');
+            const verified = localStorage.getItem('lifoss_travel_id_verified');
+            
+            if (!user) {
+                // Return to login silently
+                window.location.href = 'login.html';
+            } else if (verified !== 'true') {
+                // Silently redirect to index and trigger the identity modal
+                window.location.href = 'index.html?triggerTravel=true';
+            }
+        })();
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ── Particles ──────────────────────────────────────────
+        const container = document.getElementById('particlesContainer');
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 4 + 1;
+            p.style.cssText = `
+                width: ${size}px; height: ${size}px;
+                left: ${Math.random() * 100}%;
+                animation-duration: ${Math.random() * 15 + 8}s;
+                animation-delay: ${Math.random() * 10}s;
+                opacity: ${Math.random() * 0.5 + 0.3};
+            `;
+            container.appendChild(p);
+        }
+
+        // ── Hero Parallax ──────────────────────────────────────
+        window.addEventListener('scroll', () => {
+            const bg = document.getElementById('heroBg');
+            bg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.3}px)`;
+        });
+
+        // ── Booking Tab Switch ──────────────────────────────────
+        function switchTab(el) {
+            document.querySelectorAll('.b-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            gsap.from(el, { scale: 0.9, duration: 0.3, ease: 'back.out(2)' });
+        }
+
+        // ── Search Button Animation & Logic ─────────────────────
+        function animateSearch() {
+            const btn = document.querySelector('.search-travel-btn');
+            const from = document.getElementById('fromCity').value;
+            const to = document.getElementById('toCity').value;
+            const date = document.getElementById('departDate').value;
+
+            if (!from || !to || !date) {
+                alert('Please fill all search correctly: From, To, and Depart Date');
+                return;
+            }
+
+            // Button animation
+            gsap.timeline()
+                .to(btn, { scale: 0.95, duration: 0.1 })
+                .to(btn, { scale: 1.05, duration: 0.2 })
+                .to(btn, { scale: 1, duration: 0.2 });
+
+            // Show results
+            const resultsSection = document.getElementById('search-results-section');
+            const infoText = document.getElementById('search-info-text');
+            
+            infoText.innerText = `Searching for ${from} → ${to} on ${date}...`;
+            
+            resultsSection.style.display = 'block';
+            
+            // Populate results
+            document.querySelectorAll('.res-from').forEach(el => el.innerText = from);
+            document.querySelectorAll('.res-to').forEach(el => el.innerText = to);
+            document.querySelectorAll('.res-date').forEach(el => el.innerText = date);
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Stagger animation for result cards — safe with immediateRender:false
+            gsap.from('.result-card', {
+                opacity: 0,
+                y: 60,
+                scale: 0.95,
+                stagger: 0.1,
+                duration: 0.9,
+                ease: 'power3.out',
+                delay: 0.2,
+                immediateRender: false
+            });
+
+            // Safety fallback
+            setTimeout(() => {
+                document.querySelectorAll('.result-card').forEach(c => {
+                    c.style.opacity = '1';
+                    c.style.visibility = 'visible';
+                    c.style.transform = 'none';
+                });
+            }, 3500);
+        }
+
+        // ── Coupon Code Copy ────────────────────────────────────
+        function copyCode(el, code) {
+            navigator.clipboard?.writeText(code).catch(() => { });
+            const orig = el.textContent;
+            el.textContent = '✓ Copied!';
+            el.style.background = 'rgba(76,175,80,0.3)';
+            setTimeout(() => { el.textContent = orig; el.style.background = ''; }, 2000);
+        }
+
+        // ── GSAP Hero Entrance ──────────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            tl.from('.hero-eyebrow', { opacity: 0, y: 30, duration: 0.8 })
+                .from('#heroTitle', { opacity: 0, y: 50, duration: 1 }, '-=0.4')
+                .from('.hero-subtitle', { opacity: 0, y: 30, duration: 0.8 }, '-=0.5')
+                .from('#bookingWidget', { opacity: 0, y: 60, duration: 1.2, ease: 'power4.out' }, '-=0.4')
+                .from('.scroll-hint', { opacity: 0, duration: 0.6 }, '-=0.2');
+
+            // Stats counter animation — plain JS for reliability
+            function animateCounter(el) {
+                const target = parseInt(el.dataset.target, 10);
+                const suffix = el.dataset.suffix || '+';
+                const duration = 2000;
+                const start = performance.now();
+                let ran = false;
+                el._triggered = true;
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const value = Math.round(eased * target);
+                    el.textContent = value.toLocaleString('en-IN') + suffix;
+                    if (progress < 1) requestAnimationFrame(update);
+                }
+                requestAnimationFrame(update);
+            }
+
+            document.querySelectorAll('.stat-num').forEach(el => {
+                el._triggered = false;
+                ScrollTrigger.create({
+                    trigger: el,
+                    start: 'top 90%',
+                    onEnter: () => { if (!el._triggered) animateCounter(el); }
+                });
+            });
+
+            // Destination cards stagger
+            gsap.from('#destGrid .dest-card', {
+                scrollTrigger: { trigger: '#destGrid', start: 'top 75%' },
+                opacity: 0, y: 60, stagger: 0.15, duration: 0.9, ease: 'power3.out'
+            });
+
+            // Services stagger — safe with immediateRender:false
+            gsap.from('#servicesGrid .service-card', {
+                scrollTrigger: {
+                    trigger: '#servicesGrid',
+                    start: 'top 95%',
+                    onEnter: function() {}
+                },
+                opacity: 0,
+                y: 40,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: 'power3.out',
+                immediateRender: false
+            });
+            // Safety fallback: force cards visible after 3s no matter what
+            setTimeout(() => {
+                document.querySelectorAll('#servicesGrid .service-card').forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                    el.style.visibility = 'visible';
+                });
+            }, 3000);
+
+            // Rent cards stagger — safe with immediateRender:false
+            gsap.from('#rentGrid .rent-card', {
+                scrollTrigger: { trigger: '#rentGrid', start: 'top 95%' },
+                opacity: 0,
+                y: 30,
+                scale: 0.92,
+                stagger: 0.08,
+                duration: 0.7,
+                ease: 'back.out(1.4)',
+                immediateRender: false
+            });
+            // Safety fallback: force rent cards visible after 3s
+            setTimeout(() => {
+                document.querySelectorAll('#rentGrid .rent-card').forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'none';
+                    el.style.visibility = 'visible';
+                });
+            }, 3000);
+
+            // Offer banners
+            gsap.from('.offer-banner', {
+                scrollTrigger: { trigger: '.travel-offers', start: 'top 80%' },
+                opacity: 0, x: -40, stagger: 0.15, duration: 0.8, ease: 'power3.out'
+            });
+
+            // Stats bar
+            gsap.from('.stat-item', {
+                scrollTrigger: { trigger: '.stats-bar', start: 'top 85%' },
+                opacity: 0, y: 30, stagger: 0.1, duration: 0.7, ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFOSS | My Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="profile-body">
+    <style>
+        .profile-body {
+            background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 3rem;
+            color: #212121;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .p-header {
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: 0.3s;
+        }
+
+        .p-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -1px;
+        }
+
+        .p-container {
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2.5rem;
+            padding: 0 2rem;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05), inset 0 0 0 1px rgba(255,255,255,0.5);
+        }
+
+        .avatar-box {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .avatar-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: white;
+            padding: 6px;
+            box-shadow: 0 10px 25px rgba(59,130,246,0.2);
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+        .avatar-circle::after {
+            content: '';
+            position: absolute;
+            top:-6px; left:-6px; right:-6px; bottom:-6px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1e3a8a, #8b5cf6, #ec4899);
+            z-index: -1;
+            animation: spin 4s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .avatar-circle img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+        }
+
+        .nav-menu {
+            margin-top: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .nav-link {
+            padding: 1.1rem 1.4rem;
+            border-radius: 16px;
+            color: #555;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            background: rgba(255,255,255,0.2);
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .nav-link i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            color: #888;
+        }
+
+        .nav-link:hover {
+            color: #111;
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        
+        .nav-link:hover i { transform: scale(1.1); color: #3b82f6; }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            color: #3b82f6;
+            box-shadow: 0 8px 25px rgba(59,130,246,0.15);
+            border: 1px solid rgba(255,255,255,0.9);
+            transform: translateX(6px);
+        }
+
+        .nav-link.active i {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 5px rgba(59,130,246,0.4));
+        }
+        
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 5px;
+            background: #3b82f6;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .info-group {
+            background: rgba(255,255,255,0.5);
+            border-radius: 18px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .info-group:hover {
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            transform: translateY(-2px);
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .group-header h2 {
+            font-size: 1.15rem;
+            color: #111;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .edit-btn {
+            background: rgba(59,130,246,0.1);
+            color: #3b82f6;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .edit-btn:hover { background: #3b82f6; color: white; transform: scale(1.05); }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .input-row.single { grid-template-columns: 1fr; }
+
+        .input-box { position: relative; }
+
+        .floral-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.4);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #222;
+            font-weight: 600;
+            outline: none;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+        }
+        .floral-input:disabled {
+            color: #4b5563;
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+            cursor: not-allowed;
+        }
+        .floral-input:focus {
+            background: white;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+        }
+
+        .input-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        #saveProfileBtn {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(59,130,246,0.3);
+            transition: 0.3s;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: none;
+        }
+        #saveProfileBtn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(59,130,246,0.4);
+        }
+
+        /* Map styling */
+        #mapContainer { display: none; margin-top: 1.5rem; }
+        .map-wrapper {
+            border-radius: 16px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 4px solid white; height: 250px;
+        }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <header class="p-header">
+        <a href="index.html" class="p-logo"><i class="fa-solid fa-shapes"></i> LIFOSS</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#1e3a8a'" onmouseout="this.style.color='#444'">
+            <i class="fa-solid fa-arrow-left"></i> Back to Store
+        </a>
+    </header>
+
+    <div class="p-container">
+        <!-- Sidebar -->
+        <div class="glass-panel profile-sidebar">
+            <div class="avatar-box">
+                <div class="avatar-circle">
+                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="Avatar">
+                </div>
+                <h3 id="sidebarNameDisplay" style="margin:0; color:#111; font-size:1.5rem; font-weight:800;">User</h3>
+                <span style="color:#6366f1; font-size:0.85rem; font-weight: 700;">Premium Member ✨</span>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active"><i class="fa-solid fa-user-astronaut"></i> My Profile</a>
+                <a href="orders.html" class="nav-link"><i class="fa-solid fa-box-open"></i> My Orders</a>
+                <a href="wishlist.html" class="nav-link"><i class="fa-solid fa-heart"></i> Wishlist</a>
+                <a href="gift-cards.html" class="nav-link"><i class="fa-solid fa-wallet"></i> Wallet & Cards</a>
+                <a href="notifications.html" class="nav-link"><i class="fa-solid fa-bell"></i> Notifications</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="glass-panel profile-main" style="position: relative;">
+            <div style="margin-bottom: 2.5rem;" class="animated-header">
+                <h1 style="margin:0; font-size: 2.2rem; color: #111; letter-spacing: -1px; font-weight:800;">Account Details</h1>
+                <p style="margin: 8px 0 0; color: #666; font-weight: 500; font-size: 0.95rem;">Manage your personal information and preferences.</p>
+            </div>
+
+            <!-- Personal Info -->
+            <div class="info-group">
+                <div class="group-header">
+                    <h2><i class="fa-solid fa-id-card" style="color: #3b82f6;"></i> Personal Info</h2>
+                    <button class="edit-btn" onclick="toggleEdit('personal', event)">Edit</button>
+                </div>
+                <div class="input-row">
+                    <div class="input-box">
+                        <label class="input-label">First Name</label>
+                        <input type="text" id="profileFirstName" class="floral-input" disabled>
+                    </div>
+                    <div class="input-box">
+                        <label class="input-label">Last Name</label>
+                        <input type="text" id="profileLastName" class="floral-input" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="info-group">
+                <div class="group-header">
+                    <h2><i class="fa-solid fa-envelope" style="color: #ec4899;"></i> Contact Details</h2>
+                    <button class="edit-btn" onclick="toggleEdit('contact', event)">Edit</button>
+                </div>
+                <div class="input-row">
+                    <div class="input-box">
+                        <label class="input-label">Email Address</label>
+                        <input type="email" id="profileEmail" class="floral-input" disabled>
+                    </div>
+                    <div class="input-box">
+                        <label class="input-label">Phone Number</label>
+                        <input type="text" id="profilePhone" placeholder="+91 XXXXXXXXXX" class="floral-input" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="info-group">
+                <div class="group-header">
+                    <h2><i class="fa-solid fa-location-dot" style="color: #8b5cf6;"></i> Delivery Address</h2>
+                    <button class="edit-btn" onclick="toggleEdit('location', event)">Edit</button>
+                </div>
+                <div class="input-row" style="grid-template-columns: 1fr 2fr;">
+                    <div class="input-box">
+                        <label class="input-label">Pincode</label>
+                        <input type="text" id="profilePincode" placeholder="e.g. 110001" class="floral-input" disabled>
+                    </div>
+                    <div class="input-box">
+                        <label class="input-label">Locality / Street</label>
+                        <input type="text" id="profileLocation" placeholder="Full address..." class="floral-input" disabled>
+                    </div>
+                </div>
+
+                <div id="mapContainer">
+                    <button id="detectLocationBtn" style="padding: 10px 20px; background: #111827; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; margin-bottom: 1rem; font-size:0.85rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s;"><i class="fa-solid fa-location-crosshairs"></i> Use current GPS</button>
+                    <div class="map-wrapper" id="iframeBox">
+                        <iframe id="googleMapPreview" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: right;">
+                <button id="saveProfileBtn">Save Changes <i class="fa-solid fa-check"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // GSAP Entrance Animations
+            gsap.from(".p-header", { y: -50, opacity: 0, duration: 0.8, ease: "power3.out" });
+            gsap.from(".profile-sidebar", { x: -50, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.1 });
+            gsap.from(".animated-header", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.2 });
+            gsap.from(".info-group", { 
+                y: 40, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out", delay: 0.3 
+            });
+
+            const userJson = localStorage.getItem('lifoss_user');
+            if (!userJson) {
+                console.warn("No test user found, skipping auto-fill.");
+                return;
+            }
+            
+            const user = JSON.parse(userJson);
+            
+            // Hydrate Sidebar Greeting
+            const sidebarName = document.getElementById('sidebarNameDisplay');
+            if(sidebarName) sidebarName.innerText = user.name;
+            
+            // Hydrate Profile Inputs
+            if(user.name) {
+                const names = user.name.split(' ');
+                document.getElementById('profileFirstName').value = names[0] || '';
+                document.getElementById('profileLastName').value = names.slice(1).join(' ') || '';
+            }
+            if(user.email) {
+                document.getElementById('profileEmail').value = user.email;
+            }
+            if(user.phone) {
+                document.getElementById('profilePhone').value = user.phone;
+            }
+            if(user.location) {
+                document.getElementById('profileLocation').value = user.location;
+            }
+            if(user.pincode) {
+                document.getElementById('profilePincode').value = user.pincode;
+                document.getElementById('googleMapPreview').src = `https://maps.google.com/maps?q=${user.pincode}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+            }
+
+            // Bind Pincode tracking to Maps
+            document.getElementById('profilePincode').addEventListener('input', (e) => {
+                if(e.target.value.length >= 4) {
+                    document.getElementById('googleMapPreview').src = `https://maps.google.com/maps?q=${e.target.value}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+                }
+            });
+
+            // HTML5 Geolocation binding with Nominatim Reverse Geocoding
+            document.getElementById('detectLocationBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const btn = document.getElementById('detectLocationBtn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Locating...';
+                
+                if(navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (pos) => {
+                        const lat = pos.coords.latitude;
+                        const lng = pos.coords.longitude;
+                        document.getElementById('googleMapPreview').src = `https://maps.google.com/maps?q=${lat},${lng}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+                        
+                        try {
+                            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+                            const data = await res.json();
+                            
+                            if (data && data.address) {
+                                document.getElementById('profilePincode').value = data.address.postcode || '';
+                                
+                                const street = data.address.road || '';
+                                const locality = data.address.suburb || data.address.neighbourhood || '';
+                                const city = data.address.city || data.address.town || data.address.village || '';
+                                const state = data.address.state || '';
+                                
+                                const formattedAddress = [street, locality, city, state].filter(x => x).join(', ');
+                                document.getElementById('profileLocation').value = formattedAddress || 'Location found, address unknown';
+                            } else {
+                                document.getElementById('profileLocation').value = `GPS: ${lat}, ${lng}`;
+                            }
+                        } catch (error) {
+                            console.error('Reverse Geoding Error:', error);
+                            document.getElementById('profileLocation').value = `GPS: ${lat}, ${lng}`;
+                        }
+                        
+                        btn.innerHTML = originalText;
+                    }, () => {
+                        alert("Geolocation failed or was denied.");
+                        btn.innerHTML = originalText;
+                    });
+                } else {
+                    alert("Geolocation is not supported by your browser.");
+                    btn.innerHTML = originalText;
+                }
+            });
+
+            // Save Functionality
+            document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+                const btn = document.getElementById('saveProfileBtn');
+                btn.innerHTML = 'Saving... <i class="fa-solid fa-spinner fa-spin"></i>';
+                
+                const updatedUser = {
+                    ...user,
+                    name: document.getElementById('profileFirstName').value.trim() + ' ' + document.getElementById('profileLastName').value.trim(),
+                    email: document.getElementById('profileEmail').value.trim(),
+                    phone: document.getElementById('profilePhone').value.trim(),
+                    location: document.getElementById('profileLocation').value.trim(),
+                    pincode: document.getElementById('profilePincode').value.trim()
+                };
+
+                // Sync payload to backend
+                const res = await fetch('http://localhost:5000/api/update_profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedUser)
+                });
+                
+                if (res.ok) {
+                    localStorage.setItem('lifoss_user', JSON.stringify(updatedUser));
+                    
+                    // Show success animation
+                    gsap.to(btn, { backgroundColor: '#10b981', duration: 0.3 });
+                    btn.innerHTML = 'Saved Successfully! <i class="fa-solid fa-check-double"></i>';
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    alert("Failed to update profile. Server error.");
+                    btn.innerHTML = 'Save Changes <i class="fa-solid fa-check"></i>';
+                }
+            });
+        });
+
+        // Toggle Edit States dynamically
+        function toggleEdit(section, e) {
+            e.preventDefault();
+            const saveBtn = document.getElementById('saveProfileBtn');
+            saveBtn.style.display = 'inline-block';
+            gsap.fromTo(saveBtn, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' });
+
+            if (section === 'personal') {
+                enableInput('profileFirstName');
+                enableInput('profileLastName');
+            } else if (section === 'contact') {
+                enableInput('profileEmail');
+                enableInput('profilePhone');
+            } else if (section === 'location') {
+                enableInput('profileLocation');
+                enableInput('profilePincode');
+                const mapContainer = document.getElementById('mapContainer');
+                mapContainer.style.display = 'block';
+                gsap.fromTo(mapContainer, { height: 0, opacity: 0 }, { height: 'auto', opacity: 1, duration: 0.5 });
+            }
+        }
+
+        function enableInput(id) {
+            const input = document.getElementById(id);
+            input.disabled = false;
+            input.focus();
+            
+            // GSAP pulse effect on enable
+            gsap.fromTo(input, { scale: 0.98 }, { scale: 1, duration: 0.3, ease: 'back.out(2)' });
+        }
+    </script>
+</body>
+</html>

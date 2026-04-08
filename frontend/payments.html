@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments | LIFOSS Help</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="profile-body">
+    <style>
+        .profile-body { background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); background-size: 200% 200%; animation: gradientBG 15s ease infinite; font-family: 'Inter', sans-serif; min-height: 100vh; margin: 0; padding-bottom: 3rem; color: #212121; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .p-header { background: rgba(255,255,255,0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 30px rgba(0,0,0,0.05); border-bottom: 1px solid rgba(255,255,255,0.4); position: sticky; top: 0; z-index: 100; transition: 0.3s; }
+        .p-logo { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: #1e3a8a; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: -1px; }
+        .p-container { max-width: 1000px; margin: 3rem auto 0; padding: 0 2rem; }
+        .glass-panel { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 24px; padding: 3rem; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        
+        .animated-header h1 { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; color: #111; margin-bottom: 1rem; }
+        .animated-header p { color: #555; font-size: 1.1rem; line-height: 1.6; }
+        
+        .payment-methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+        .method-card { background: rgba(255,255,255,0.4); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255,255,255,0.6); transition: 0.3s; }
+        .method-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.7); }
+        .method-card i { font-size: 2rem; color: #3b82f6; margin-bottom: 1rem; }
+        .method-card h3 { font-size: 1.2rem; font-weight: 800; margin: 0 0 10px; }
+        .method-card p { font-size: 0.95rem; color: #555; margin: 0; line-height: 1.5; }
+        
+        .safety-badge { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 1.5rem; border-radius: 16px; margin-top: 3rem; display: flex; align-items: center; gap: 1.5rem; }
+        .safety-badge i { font-size: 2.5rem; }
+        .safety-badge div h4 { font-size: 1.1rem; font-weight: 800; margin: 0 0 5px; }
+        .safety-badge div p { font-size: 0.9rem; margin: 0; opacity: 0.9; }
+
+        .nav-footer { display: flex; justify-content: center; gap: 2rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); }
+        .nav-link { color: #1e3a8a; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .nav-link:hover { color: #3b82f6; }
+    </style>
+
+    <header class="p-header">
+        <a href="index.html" class="p-logo"><i class="fa-solid fa-shapes"></i> LIFOSS</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+    </header>
+
+    <div class="p-container">
+        <div class="glass-panel">
+            <div class="animated-header">
+                <h1>Secure Payments</h1>
+                <p>We provide a variety of secure payment methods to ensure a smooth checkout experience. Your financial security is our top priority.</p>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="method-card">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <h3>Credit & Debit Cards</h3>
+                    <p>We accept all major cards including Visa, Mastercard, RuPay, and American Express.</p>
+                </div>
+                <div class="method-card">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <h3>UPI / QR Code</h3>
+                    <p>Instant payments via Google Pay, PhonePe, Paytm, and more using secure UPI rails.</p>
+                </div>
+                <div class="method-card">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <h3>Net Banking</h3>
+                    <p>Direct bank transfers available for over 50+ major Indian banks.</p>
+                </div>
+                <div class="method-card">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <h3>Cash on Delivery</h3>
+                    <p>Pay at your doorstep. Available for select products and pin codes.</p>
+                </div>
+            </div>
+
+            <div class="safety-badge">
+                <i class="fa-solid fa-user-shield"></i>
+                <div>
+                    <h4>100% Payment Protection</h4>
+                    <p>Every transaction is encrypted with 256-bit SSL technology. Your card details are never stored on our servers.</p>
+                </div>
+            </div>
+
+            <div class="nav-footer">
+                <a href="shipping.html" class="nav-link">Shipping</a>
+                <a href="returns.html" class="nav-link">Returns</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.from(".glass-panel", { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" });
+            gsap.from(".method-card", { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, delay: 0.4 });
+            gsap.from(".safety-badge", { scale: 0.9, opacity: 0, duration: 0.6, delay: 0.8, ease: "back.out(1.7)" });
+        });
+    </script>
+</body>
+</html>

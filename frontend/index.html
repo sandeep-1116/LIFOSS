@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFOSS | Life Operating System</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+    <div id="progress-bar"></div>
+
+    <!-- Top Navigation (Premium Glassmorphic Design) -->
+    <header class="fk-header modern-glass-header">
+        <div class="glass-header-container">
+            <!-- Left: Logo & Core Tabs -->
+            <div class="glass-left">
+                <div class="logo-text" onclick="window.location.href='index.html'">LIFOSS</div>
+                <div class="glass-nav-links">
+                     <span class="g-link active" onclick="window.location.href='index.html'">Home</span>
+                     <span class="g-link grocery-tab" onclick="window.location.href='grocery.html'"><i class="fa-solid fa-seedling"></i> Grocery</span>
+                     <span class="g-link travel-tab" id="travelTabBtn" onclick="handleTravelAccess()"><i class="fa-solid fa-plane"></i> Travel</span>
+                </div>
+            </div>
+
+            <!-- Middle: Search -->
+            <div class="glass-search">
+                <button class="search-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" id="mainSearch" placeholder="Search for premium products...">
+            </div>
+
+            <!-- Right: Actions -->
+            <div class="glass-right">
+                <div class="glass-action-item" onclick="document.getElementById('locationModal').style.display='flex';">
+                    <i class="fa-solid fa-location-dot gradient-icon"></i>
+                    <div class="g-text">
+                        <span class="g-sub">Deliver to</span>
+                        <span class="g-main" id="headerLocText">Location not set</span>
+                    </div>
+                </div>
+
+                <div class="glass-action-item login-dropdown">
+                    <i class="fa-regular fa-user gradient-icon"></i>
+                    <div class="g-text">
+                        <span class="g-sub">Account</span>
+                        <span class="g-main" id="loginText">Login</span>
+                    </div>
+                    <!-- Dropdown Content (kept similar for JS compat) -->
+                    <div class="login-menu-dropdown glass-dropdown">
+                        <div class="menu-header" id="menuHeaderBox">
+                            <a href="login.html" class="signup-link" style="color: #212121; font-weight: 500;">Log In</a>
+                            <span class="new-cust" style="margin: 0 10px; font-size: 0.8rem; color: #878787;">or</span>
+                            <a href="login.html" class="signup-link">Sign Up</a>
+                        </div>
+                        <ul class="menu-list">
+                            <li onclick="window.location.href='profile.html'"><i class="fa-regular fa-circle-user"></i> My Profile</li>
+                            <li onclick="window.location.href='orders.html'"><i class="fa-solid fa-box-open"></i> Orders</li>
+                            <li onclick="window.location.href='wishlist.html'"><i class="fa-regular fa-heart"></i> Wishlist</li>
+                            <li onclick="window.location.href='support.html'"><i class="fa-solid fa-headset"></i> 24x7 Customer Care</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-action-item cart-toggle focus-btn" id="cartToggle">
+                    <div class="cart-icon-wrapper">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                    <span>Cart</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sleek Scrolling Categories -->
+        <div class="glass-categories">
+            <div class="cat-pill-track category-bar">
+                <div class="cat-item active" data-filter="all"><span>✨ For You</span></div>
+                <div class="cat-item" data-filter="Fashion"><span>🧥 Fashion</span></div>
+                <div class="cat-item" data-filter="Mobiles"><span>📱 Mobiles</span></div>
+                <div class="cat-item" data-filter="Beauty"><span>💄 Beauty</span></div>
+                <div class="cat-item" data-filter="Electronics"><span>💻 Electronics</span></div>
+                <div class="cat-item" data-filter="Home"><span>🏡 Home</span></div>
+                <div class="cat-item" data-filter="Appliances"><span>📺 Appliances</span></div>
+                <div class="cat-item" data-filter="Toys"><span>🧸 Toys</span></div>
+                <div class="cat-item" data-filter="Grocery"><span>🥑 Grocery</span></div>
+                <div class="cat-item" data-filter="Auto"><span>🏍️ Auto</span></div>
+                <div class="cat-item" data-filter="Sports"><span>⚽ Sports</span></div>
+                <div class="cat-item" data-filter="Books"><span>📚 Books</span></div>
+                <div class="cat-item" data-filter="Furniture"><span>🪑 Furniture</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Cart -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>My Cart</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-msg">Your cart is empty!</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total">
+                <span>Total Amount</span>
+                <span id="cartTotal">₹0.00</span>
+            </div>
+            <button class="checkout-btn">Place Order</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <main class="page-content">
+        <!-- Main Trending & Advertisement Hub -->
+        <section class="trending-ad-hub"
+            style="max-width: 1600px; margin: 0 auto; padding: 0.5rem 10rem 0; display: grid; grid-template-columns: 2.2fr 1fr; gap: 1rem; height: 320px;">
+            <div class="main-ad-slider"
+                style="background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1555529733-0e67056058e3?q=80&w=1500&auto=format&fit=crop') center/cover; border-radius: 4px; position: relative; overflow: hidden; cursor: pointer; display: flex; align-items: center; padding: 3rem; transition: transform 0.2s;">
+                <div style="position: relative; z-index: 2; color: white;">
+                    <span
+                        style="background: #2874f0; padding: 5px 10px; font-weight: 700; font-size: 0.8rem; border-radius: 2px; margin-bottom: 1rem; display: inline-block;">TRENDING
+                        ADS</span>
+                    <h2 style="font-size: 2.8rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.1;">End of
+                        Season<br>Mega Sale</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.9;">Up to 80% off on top Fashion &
+                        Electronics</p>
+                    <button
+                        style="padding: 10px 25px; background: white; color: #212121; font-weight: 700; border: none; border-radius: 2px; cursor: pointer; display: flex; align-items: center; gap: 8px;">Shop
+                        The Sale <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div class="side-ad"
+                    style="flex: 1; background: linear-gradient(135deg, #1e3a8a, #3b82f6); border-radius: 4px; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; color: white; cursor: pointer; transition: transform 0.2s;">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 5px;">Flight Offers</h4>
+                        <p
+                            style="font-size: 0.9rem; opacity: 0.9; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 3px; display:inline-block;">
+                            Flat 15% Off*</p>
+                    </div>
+                    <i class="fa-solid fa-plane-departure" style="font-size: 2.5rem; opacity: 0.8;"></i>
+                </div>
+                <div class="side-ad"
+                    style="flex: 1; background: linear-gradient(135deg, #831843, #ec4899); border-radius: 4px; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; color: white; cursor: pointer; transition: transform 0.2s;">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 5px;">Premium Laptops</h4>
+                        <p
+                            style="font-size: 0.9rem; opacity: 0.9; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 3px; display:inline-block;">
+                            Starting ₹19,990</p>
+                    </div>
+                    <i class="fa-solid fa-laptop" style="font-size: 2.5rem; opacity: 0.8;"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promo Banners Grid (Exact 3 column structure) -->
+        <section class="banner-grid-system">
+            <div class="promo-item banner-redmi">
+                <div class="promo-text">
+                    <span class="mi-logo">MI</span>
+                    <h2>Redmi Note 15 SE</h2>
+                    <p class="price-pill">From ₹17,999*</p>
+                    <p class="sub">Sale starts tomorrow</p>
+                </div>
+                <div class="bank-offer">
+                    <img src="assets/images/lifoss_bank_offer.svg" alt="Card Offer">
+                    <span>10% Instant Discount*</span>
+                </div>
+            </div>
+            <div class="promo-item banner-nova">
+                <div class="promo-text">
+                    <span class="ai-badge">Ai+ Smartphone</span>
+                    <h2>Nova 2 Ultra <sup>5G</sup></h2>
+                    <p class="sub">Launching 9th Apr</p>
+                </div>
+                <div class="earbuds-promo">
+                    <div class="earbuds-box">Earbuds Inside the box</div>
+                </div>
+            </div>
+            <div class="promo-item banner-voltas">
+                <div class="promo-text">
+                    <span class="volt-brand">VOLTAS <span>A TATA Product</span></span>
+                    <h2>Learn. Adjust. Save</h2>
+                    <p class="big-offer">Up to 50% Off</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offer Row (Exact 3 column structure below) -->
+        <section class="offer-cards-grid">
+            <div class="offer-card fashion-offer">
+                <div class="offer-img-frame"><img src="assets/images/mens_shirt.png" alt="Fashion"></div>
+                <p class="offer-text">Min. 80% Off</p>
+            </div>
+            <div class="offer-card toys-offer">
+                <div class="offer-img-frame"><img src="assets/images/almonds.png" alt="Toys"></div>
+                <p class="offer-text">Up to 70% Off</p>
+            </div>
+            <div class="offer-card travel-offer">
+                <div class="offer-img-frame"><img src="assets/images/laptop.png" alt="Travel"></div>
+                <p class="offer-text">Min. 70% Off</p>
+            </div>
+        </section>
+
+        <!-- Always Running Products (Lifoss Auto-Slider) -->
+        <section class="running-products-section"
+            style="background: white; margin: 1rem 4rem; padding: 1rem; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); overflow: hidden;">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 1rem; margin-bottom: 1rem;">
+                <h2 style="font-size: 1.3rem; font-weight: 600;">Always Running Deals</h2>
+                <button
+                    style="background: #2874f0; color: white; border: none; border-radius: 2px; padding: 6px 15px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center;"><i
+                        class="fa-solid fa-bolt" style="color: #ff9f00; margin-right: 5px;"></i> View All</button>
+            </div>
+
+            <div class="marquee-container"
+                style="overflow: hidden; white-space: nowrap; width: 100%; position: relative;">
+                <div class="marquee-track" id="runningDealsTrack">
+                    <!-- Products will be dynamically cloned and animated via JS/CSS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Listing -->
+        <section class="all-products-section" id="allProducts">
+            <div class="section-title-wrap">
+                <h2 id="currentCategoryTitle">All Products</h2>
+                <div class="sort-options">
+                    <span>Sort by</span>
+                    <select id="sortSelect">
+                        <option value="popularity">Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="products-grid" id="productGrid">
+                <!-- Products injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="mega-footer">
+        <div class="footer-sections">
+            <div class="footer-col">
+                <h4>ABOUT LIFOSS</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="about.html">About Us</a>
+                <a href="careers.html">Careers</a>
+            </div>
+            <div class="footer-col">
+                <h4>HELP</h4>
+                <a href="payments.html">Payments</a>
+                <a href="shipping.html">Shipping</a>
+                <a href="returns.html">Returns</a>
+            </div>
+            <div class="footer-col">
+                <h4>POLICY</h4>
+                <a href="#">Return Policy</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="footer-col">
+                <h4>SOCIAL</h4>
+                <div class="footer-social">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 LIFOSS | Life Operating System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Added to cart!</div>
+
+    <!-- Product Details Modal (Flipkart Style) -->
+    <div class="product-modal-overlay" id="productModal">
+        <div class="product-modal-container">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-content-split">
+                <div class="modal-left">
+                    <div class="modal-img-frame">
+                        <img id="modalImg" src="" alt="">
+                    </div>
+                    <div class="modal-actions">
+                        <button class="m-btn m-add-cart" id="modalAddToCart">ADD TO CART</button>
+                        <button class="m-btn m-buy-now">BUY NOW</button>
+                    </div>
+                </div>
+                <div class="modal-right">
+                    <nav class="breadcrumb">Home > <span id="modalCat">Category</span></nav>
+                    <h1 id="modalTitle">Product Title</h1>
+                    <div class="modal-rating-row">
+                        <span class="rating-badge" id="modalRating">4.8 <i class="fa-solid fa-star"></i></span>
+                        <span class="rating-count">1,540 Ratings & 204 Reviews</span>
+                    </div>
+                    <div class="modal-price-row">
+                        <span class="modal-price" id="modalPrice">₹49,999</span>
+                        <span class="m-strike">₹59,999</span>
+                        <span class="m-off">16% off</span>
+                    </div>
+
+                    <!-- Color Variants -->
+                    <div class="modal-section color-variants">
+                        <h3>Color</h3>
+                        <div class="color-options">
+                            <div class="color-circle active" style="background: #172337;" title="Midnight Blue"></div>
+                            <div class="color-circle" style="background: #b91d1d;" title="Ruby Red"></div>
+                            <div class="color-circle" style="background: #ddd;" title="Titanium Gray"></div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery & Services -->
+                    <div class="modal-section delivery-check">
+                        <h3>Delivery</h3>
+                        <div class="pincode-input">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <input type="text" id="pincodeCheck" placeholder="Enter Pincode">
+                            <button id="pincodeBtn">Check</button>
+                        </div>
+                        <p class="del-info">Delivery by <b>Thu, 11th Apr</b> | <span class="free">Free</span> <span
+                                class="strike">₹40</span></p>
+                    </div>
+
+                    <!-- Offers & EMI -->
+                    <div class="modal-offers">
+                        <h3>Available offers</h3>
+                        <p><i class="fa-solid fa-tag"></i> <b>Bank Offer</b> 10% instant discount on Cards, up to
+                            ₹1,500. <a href="#">T&C</a></p>
+                        <p><i class="fa-solid fa-tag"></i> <b>Bank Offer</b> 5% Cashback on LIFOSS Axis Bank Card. <a
+                                href="#">T&C</a></p>
+                        <p><i class="fa-solid fa-calendar-check"></i> <b>No Cost EMI</b> ₹2,450/month. Standard EMI also
+                            available. <a href="#">View Plans</a></p>
+                    </div>
+
+                    <!-- Product Highlights -->
+                    <div class="modal-section highlights">
+                        <h3>Highlights</h3>
+                        <ul id="modalHighlights">
+                            <li>8 GB RAM | 256 GB ROM</li>
+                            <li>17.02 cm (6.7 inch) Super Retina XDR Display</li>
+                            <li>48MP + 12MP + 12MP | 12MP Front Camera</li>
+                            <li>A17 Pro Chip, 6 Core Processor</li>
+                        </ul>
+                    </div>
+
+                    <!-- Ratings & Reviews (Detailed) -->
+                    <div class="modal-section rating-breakdown">
+                        <h3>Ratings & Reviews</h3>
+                        <div class="rating-grid">
+                            <div class="rating-overall">
+                                <div class="big-star">4.8 <i class="fa-solid fa-star"></i></div>
+                                <p>1,540 Ratings & 204 Reviews</p>
+                            </div>
+                            <div class="star-bars">
+                                <div class="s-bar"><span>5 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 80%"></div>
+                                    </div> <span>1,200</span>
+                                </div>
+                                <div class="s-bar"><span>4 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 15%"></div>
+                                    </div> <span>240</span>
+                                </div>
+                                <div class="s-bar"><span>3 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 3%"></div>
+                                    </div> <span>50</span>
+                                </div>
+                                <div class="s-bar"><span>2 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 1%"></div>
+                                    </div> <span>30</span>
+                                </div>
+                                <div class="s-bar"><span>1 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 1%"></div>
+                                    </div> <span>20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Section -->
+                    <div class="modal-section qa-section">
+                        <h3>Questions and Answers</h3>
+                        <div class="qa-item">
+                            <p class="q"><b>Q:</b> Is the charger included in the box?</p>
+                            <p class="a"><b>A:</b> No, only the USB-C cable is included as part of our sustainability
+                                initiative.</p>
+                        </div>
+                        <div class="qa-item">
+                            <p class="q"><b>Q:</b> Does it support 5G?</p>
+                            <p class="a"><b>A:</b> Yes, it supports all major 5G bands globally.</p>
+                        </div>
+                        <button class="all-qa-btn">View all questions</button>
+                    </div>
+
+                    <div class="modal-description">
+                        <h3>Product Description</h3>
+                        <p id="modalDesc">Full description goes here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Modal Overlay (Flipkart Style) -->
+    <div class="location-modal-overlay" id="locationModal">
+        <div class="location-modal-container">
+            <div class="loc-header">
+                <h2>Choose your Delivery Location</h2>
+                <button class="close-loc-modal" id="closeLocModal"
+                    onclick="document.getElementById('locationModal').style.display='none';">&times;</button>
+            </div>
+            <div class="loc-body">
+                <div class="loc-login-box" id="locLoginBox">
+                    <p>Select a delivery location to see product availability and delivery options</p>
+                    <button class="loc-login-btn" onclick="window.location.href='login.html'">Login to see your saved
+                        addresses</button>
+                </div>
+                <div class="loc-saved-box" id="locSavedBox" style="display: none;">
+                    <p
+                        style="font-weight: 600; color: #878787; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.8rem;">
+                        Saved Addresses</p>
+                    <div class="user-saved-loc" id="userSavedLocBox" onclick="selectSavedLocation()">
+                        <i class="fa-solid fa-house loc-icon"></i>
+                        <div>
+                            <p id="userSavedName" style="font-weight: 600; margin-bottom: 5px; color: #212121;"></p>
+                            <p id="userSavedAddress" style="font-size: 0.9rem; color: #878787; line-height: 1.4;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loc-divider">
+                    <div class="line"></div>
+                    <span>OR</span>
+                    <div class="line"></div>
+                </div>
+
+                <button class="loc-current-btn" id="locCurrentBtn">
+                    <i class="fa-solid fa-location-crosshairs"></i> Use my current location
+                </button>
+
+                <div class="loc-search">
+                    <input type="text" id="locSearchInput" placeholder="Search area, street, name, PIN code">
+                    <button id="locApplyBtn">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Travel Identity Verification Modal -->
+    <div id="travelIdentityModal" class="modal-overlay"
+        style="display: none; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);">
+        <div class="modal-content"
+            style="width: 480px; border-radius: 20px; overflow: hidden; background: white; position: relative;">
+            <div style="background: #2874f0; padding: 2rem; color: white; text-align: center;">
+                <div style="font-size: 3.5rem; margin-bottom: 1rem;">✈️</div>
+                <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">Travel Identity</h2>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Please provide your travel credentials for a smooth
+                    boarding experience.</p>
+            </div>
+
+            <div style="padding: 2.5rem;">
+                <form id="travelIdForm" onsubmit="submitTravelIdentity(event)">
+                    <div class="input-grp" style="margin-bottom: 1.5rem; border: none; padding: 0;">
+                        <label
+                            style="display: block; font-size: 0.85rem; font-weight: 700; color: #666; margin-bottom: 0.5rem;">FULL
+                            NAME (As per Govt. ID)</label>
+                        <input type="text" id="idFullName" required placeholder="Ex: Rahul Kumar"
+                            style="width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 12px; font-size: 1rem; background: #f9f9f9; color: #333;">
+                    </div>
+
+                    <div class="input-grp" style="margin-bottom: 1.5rem; border: none; padding: 0;">
+                        <label
+                            style="display: block; font-size: 0.85rem; font-weight: 700; color: #666; margin-bottom: 0.5rem;">ID
+                            TYPE & NUMBER (Last 4 digits only)</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <select id="idType"
+                                style="width: 120px; border: 1px solid #ddd; border-radius: 8px; padding: 12px; font-size: 0.9rem; background: #f9f9f9;">
+                                <option>Aadhaar</option>
+                                <option>Passport</option>
+                                <option>PAN</option>
+                                <option>Voter ID</option>
+                            </select>
+                            <input type="text" id="idPartialNum" required maxlength="4" placeholder="1234"
+                                style="flex: 1; border: 1px solid #ddd; border-radius: 8px; padding: 12px; font-size: 1rem; background: #f9f9f9; color: #333;">
+                        </div>
+                    </div>
+
+                    <div class="input-grp" style="margin-bottom: 2rem; border: none; padding: 0;">
+                        <label
+                            style="display: block; font-size: 0.85rem; font-weight: 700; color: #666; margin-bottom: 0.5rem;">EMERGENCY
+                            CONTACT PHONE</label>
+                        <input type="tel" id="idEmergencyPhone" required pattern="[0-9]{10}"
+                            placeholder="10-digit number"
+                            style="width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 12px; font-size: 1rem; background: #f9f9f9; color: #333;">
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" onclick="closeTravelIdentityModal()"
+                            style="flex:1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white; font-weight: 700; cursor: pointer;">Cancel</button>
+                        <button type="submit"
+                            style="flex:2; padding: 12px; background: #fb641b; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(251,100,27,0.3);">Continue
+                            to Travel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

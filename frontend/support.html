@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFOSS | 24x7 Customer Care</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body class="profile-body">
+    <style>
+        .profile-body {
+            background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 3rem;
+            color: #212121;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .p-header {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: 0.3s;
+        }
+
+        .p-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -1px;
+        }
+
+        .p-container {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #111;
+            letter-spacing: -1px;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .animated-header p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        /* Contact Cards */
+        .contact-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            transition: 0.3s;
+        }
+
+        .contact-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #111;
+            margin: 0 0 5px;
+        }
+
+        .contact-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .contact-card.email-card i {
+            color: #ec4899;
+        }
+
+        /* FAQ Section */
+        .faq-section h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            font-weight: 700;
+            color: #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.05rem;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+            color: #3b82f6;
+            font-size: 1.2rem;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .faq-item.active {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+            color: #ec4899;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.2rem;
+            max-height: 200px;
+        }
+
+        /* Ticket Form */
+        .ticket-form {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.4));
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .floral-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #222;
+            font-weight: 600;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .floral-input:focus {
+            background: white;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+        }
+
+        textarea.floral-input {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+            transition: 0.3s;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Floating Live Chat */
+        .live-chat-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .live-chat-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.5);
+        }
+
+        .live-chat-btn::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            border: 2px solid #10b981;
+            opacity: 0;
+            animation: ripple 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <header class="p-header">
+        <a href="index.html" class="p-logo"><i class="fa-solid fa-shapes"></i> LIFOSS</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-weight: 600; transition: 0.2s;"
+            onmouseover="this.style.color='#1e3a8a'" onmouseout="this.style.color='#444'">
+            <i class="fa-solid fa-arrow-left"></i> Back to Store
+        </a>
+    </header>
+
+    <div class="p-container">
+        <div class="glass-panel">
+            <!-- Decorative Backglow -->
+            <div
+                style="position:absolute; top:-100px; right:-100px; width:400px; height:400px; background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%); filter:blur(30px); border-radius:50%; z-index:0;">
+            </div>
+
+            <div class="animated-header" style="position: relative; z-index: 1;">
+                <h1>How can we help you?</h1>
+                <p>Welcome to the premium LIFOSS Customer Success Portal. Find immediate answers, access instant live
+                    chat, or securely submit a support ticket below.</p>
+            </div>
+
+            <div class="support-grid" style="position: relative; z-index: 1;">
+
+                <!-- Left Column: Quick Info & FAQ -->
+                <div class="left-col"
+                    style="display: flex; flex-direction: column; gap: 3rem; justify-content: flex-start;">
+                    <div class="contact-cards" style="margin-bottom: 0;">
+                        <a href="tel:8144742255" style="text-decoration: none;">
+                            <div class="contact-card phone-card">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <h3>Call Support</h3>
+                                <p>8144742255</p>
+                                <p style="font-size:0.75rem; color:#888; margin-top:5px; text-transform: uppercase;">
+                                    24x7 Available</p>
+                            </div>
+                        </a>
+                        <a href="mailto:sandeeprana9832@gmail.com" style="text-decoration: none;">
+                            <div class="contact-card email-card">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                                <h3>Email Desk</h3>
+                                <p>sandeeprana9832@gmail.com</p>
+                                <p style="font-size:0.75rem; color:#888; margin-top:5px; text-transform: uppercase;">
+                                    Fast Resolutions</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="faq-section">
+                        <h2><i class="fa-solid fa-circle-question" style="color: #8b5cf6;"></i> Frequently Asked
+                            Questions</h2>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                Where is my recent order? <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                You can track your recent orders perfectly by clicking the <strong>"My Orders"</strong>
+                                tab in your profile dashboard. Real-time GPS tracking is available for all dispatched
+                                items right to your doorstep.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                What is the return refund timeline? <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Once your returned item reaches our fulfillment center, please allow 3-5 business days
+                                for our technical team to perform a quality inspection. The refund will reflect in your
+                                original payment method within exactly 48 hours afterward.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                How do I apply a Gift Card? <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                During the checkout phase, expand the "Apply Gift Card / Wallet" drop-down menu in your
+                                cart. Enter your 16-digit alphanumeric pin code securely. The amount will be dynamically
+                                deducted from your total payable balance instantly!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Ticket Form -->
+                <div class="right-col">
+                    <div class="ticket-form">
+                        <div class="form-title">
+                            <i class="fa-solid fa-paper-plane" style="color: #3b82f6;"></i> Send a Support Request
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Full Name</label>
+                            <input type="text" id="supportName" class="floral-input"
+                                placeholder="Enter your registered name">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Email Address</label>
+                            <input type="email" id="supportEmail" class="floral-input" placeholder="name@example.com">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Type of Issue</label>
+                            <select class="floral-input" style="appearance: none; cursor:pointer;" id="supportTopic">
+                                <option>Order Delivery & Live Tracking</option>
+                                <option>Returns, Exchanges & Refunds</option>
+                                <option>Wallet Issues & Payment Failures</option>
+                                <option>Account Security & Passwords</option>
+                                <option>Other General Inquiries</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Message Details</label>
+                            <textarea class="floral-input" id="supportMessage"
+                                placeholder="Please describe your issue in maximum detail so our experts can assist you promptly..."></textarea>
+                        </div>
+
+                        <button class="submit-btn" id="submitTicketBtn" onclick="submitTicket()">
+                            Submit Ticket Securely <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Widget Mockup -->
+    <div class="live-chat-btn" title="Chat with Support">
+        <i class="fa-regular fa-comment-dots"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // GSAP Entrance Animations
+            gsap.from(".p-header", { y: -50, opacity: 0, duration: 0.8, ease: "power3.out" });
+            gsap.from(".glass-panel", { y: 30, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.1 });
+            gsap.from(".animated-header h1, .animated-header p", { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out", delay: 0.3 });
+
+            // Stagger Cards & Forms
+            gsap.from(".contact-card", { y: 40, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out", delay: 0.4 });
+            gsap.from(".faq-item", { x: -30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out", delay: 0.6 });
+            gsap.from(".ticket-form", { x: 30, scale: 0.98, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.8 });
+            gsap.from(".live-chat-btn", { scale: 0, opacity: 0, duration: 1, ease: "elastic.out(1, 0.3)", delay: 1.2 });
+
+            // Hydrate logic if user is logged in
+            let userJson = localStorage.getItem('lifoss_user');
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                if (user.name) document.getElementById('supportName').value = user.name;
+                if (user.email) document.getElementById('supportEmail').value = user.email;
+            }
+        });
+
+        // FAQ Interactive Logic
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            const wasActive = item.classList.contains('active');
+
+            // Close all smoothly
+            document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+
+            // Toggle current
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Ticket Submission Animation Logic
+        function submitTicket() {
+            const btn = document.getElementById('submitTicketBtn');
+            const msg = document.getElementById('supportMessage').value;
+
+            if (!msg.trim()) {
+                gsap.to(btn, { x: 10, yoyo: true, repeat: 3, duration: 0.1 }); // shake effect
+                return;
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+
+            setTimeout(() => {
+                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                btn.innerHTML = '<i class="fa-solid fa-check-double"></i> Ticket Created Successfully!';
+
+                document.getElementById('supportMessage').value = '';
+
+                setTimeout(() => {
+                    btn.style.background = 'linear-gradient(135deg, #3b82f6, #8b5cf6)';
+                    btn.innerHTML = 'Submit Ticket Securely <i class="fa-solid fa-arrow-right"></i>';
+                }, 4000);
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

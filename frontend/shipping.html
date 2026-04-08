@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Info | LIFOSS Help</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="profile-body">
+    <style>
+        .profile-body { background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); background-size: 200% 200%; animation: gradientBG 15s ease infinite; font-family: 'Inter', sans-serif; min-height: 100vh; margin: 0; padding-bottom: 3rem; color: #212121; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .p-header { background: rgba(255,255,255,0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 30px rgba(0,0,0,0.05); border-bottom: 1px solid rgba(255,255,255,0.4); position: sticky; top: 0; z-index: 100; transition: 0.3s; }
+        .p-logo { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: #1e3a8a; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: -1px; }
+        .p-container { max-width: 1000px; margin: 3rem auto 0; padding: 0 2rem; }
+        .glass-panel { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 24px; padding: 3rem; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        
+        .animated-header h1 { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; color: #111; margin-bottom: 1rem; }
+        .animated-header p { color: #555; font-size: 1.1rem; line-height: 1.6; }
+        
+        .shipping-timeline { margin-top: 3rem; position: relative; padding-left: 2rem; border-left: 2px dashed rgba(59,130,246,0.5); }
+        .timeline-item { margin-bottom: 2.5rem; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -2.7rem; top: 0.5rem; width: 20px; height: 20px; background: #3b82f6; border: 4px solid white; border-radius: 50%; box-shadow: 0 0 15px rgba(59,130,246,0.3); }
+        .timeline-content h3 { font-size: 1.2rem; font-weight: 800; color: #111; margin: 0 0 5px; }
+        .timeline-content p { color: #555; font-size: 1rem; margin: 0; }
+        
+        .shipping-stats { display: flex; gap: 2rem; margin-top: 3rem; background: rgba(255,255,255,0.4); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.6); }
+        .stat-box { flex: 1; text-align: center; }
+        .stat-box h4 { font-size: 1.5rem; font-weight: 800; color: #3b82f6; margin: 0 0 5px; }
+        .stat-box p { font-size: 0.85rem; color: #777; margin: 0; text-transform: uppercase; font-weight: 700; }
+
+        .nav-footer { display: flex; justify-content: center; gap: 2rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); }
+        .nav-link { color: #1e3a8a; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .nav-link:hover { color: #3b82f6; }
+    </style>
+
+    <header class="p-header">
+        <a href="index.html" class="p-logo"><i class="fa-solid fa-shapes"></i> LIFOSS</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+    </header>
+
+    <div class="p-container">
+        <div class="glass-panel">
+            <div class="animated-header">
+                <h1>Shipping & LOGISTICS</h1>
+                <p>We work with global shipping partners to ensure your premium products reach you in pristine condition and record time.</p>
+            </div>
+            
+            <div class="shipping-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Order Processing</h3>
+                        <p>Most orders are verified and processed within 24 hours of placement.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Quality Inspection</h3>
+                        <p>Every item undergoes a rigorous 10-point quality check before dispatch.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Express Dispatch</h3>
+                        <p>Items are handed over to our premium logistics partners (BlueDart, Delhivery, Ecom Express).</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Delivery at Doorstep</h3>
+                        <p>Estimated delivery within 3-5 business days across India.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shipping-stats">
+                <div class="stat-box">
+                    <h4>20,000+</h4>
+                    <p>PINCODES COVERED</p>
+                </div>
+                <div class="stat-box">
+                    <h4>FASTEST</h4>
+                    <p>24-HOUR DISPATCH</p>
+                </div>
+                <div class="stat-box">
+                    <h4>SECURE</h4>
+                    <p>TRANSIT INSURANCE</p>
+                </div>
+            </div>
+
+            <div class="nav-footer">
+                <a href="payments.html" class="nav-link">Payments</a>
+                <a href="returns.html" class="nav-link">Returns</a>
+                <a href="about.html" class="nav-link">About Us</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.from(".glass-panel", { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" });
+            gsap.from(".timeline-item", { x: -30, opacity: 0, duration: 0.6, stagger: 0.15, delay: 0.4 });
+            gsap.from(".shipping-stats", { y: 20, opacity: 0, duration: 0.6, delay: 1 });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFOSS | Life Operating System</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* Grocery-Specific Category Styling Correction */
+        .category-bar {
+            justify-content: center !important; /* Center the 9 grocery items perfectly */
+            gap: 3.5rem !important; /* Add luxurious breathing room */
+        }
+        .cat-item i {
+            font-size: 2.2rem !important;
+            color: #2e7d32 !important; /* Organic Grocery Green */
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cat-item:hover i {
+            transform: scale(1.15); /* Satisfying organic pop effect */
+        }
+        .cat-item.active {
+            color: #2e7d32 !important;
+            border-bottom: 3px solid #2e7d32 !important;
+        }
+        .cat-item span {
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="progress-bar"></div>
+
+    <!-- Top Navigation (Refined Flipkart style) -->
+    <header class="fk-header">
+        <div class="header-top-bar">
+            <div class="header-left">
+                <div class="fk-tabs">
+                    <div class="tab lifoss-tab" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                        <span class="lifoss-logo">LIFOSS</span>
+                    </div>
+                    <div class="tab grocery-tab active">
+                        <i class="fa-solid fa-basket-shopping" style="color: #2874f0; font-size: 1.1rem;"></i>
+                        <span style="font-weight: 600;">Grocery</span>
+                    </div>
+                    <div class="tab travel-tab" onclick="window.location.href='travel.html'">
+                        <i class="fa-solid fa-plane"></i>
+                        <span>Travel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="location-selector" onclick="document.getElementById('locationModal').style.display='flex';"
+                style="cursor: pointer;">
+                <i class="fa-solid fa-location-dot"></i>
+                <span id="headerLocText">Location not set</span>
+                <span style="color: var(--primary-blue); font-weight: 600;">Select delivery location ></span>
+            </div>
+        </div>
+
+        <div class="header-main">
+            <div class="header-container-flex">
+                <div class="header-search">
+                    <button class="search-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" id="mainSearch" placeholder="Search for Products, Brands and More">
+                </div>
+
+                <div class="header-actions">
+                    <div class="header-item login-dropdown">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span id="loginText">Login</span>
+                        <i class="fa-solid fa-chevron-down small-chevron"></i>
+
+                        <!-- Login Hover Dropdown -->
+                        <div class="login-menu-dropdown">
+                            <div class="menu-header" id="menuHeaderBox">
+                                <a href="login.html" class="signup-link" style="color: #212121; font-weight: 500;">Log
+                                    In</a>
+                                <span class="new-cust"
+                                    style="margin: 0 10px; font-size: 0.8rem; color: #878787;">or</span>
+                                <a href="login.html" class="signup-link">Sign Up</a>
+                            </div>
+                            <ul class="menu-list">
+                                <li onclick="window.location.href='profile.html'"><i
+                                        class="fa-regular fa-circle-user"></i> My Profile</li>
+                                <li onclick="window.location.href='plus-zone.html'"><i
+                                        class="fa-solid fa-star-half-stroke"></i> Lifoss Plus Zone</li>
+                                <li onclick="window.location.href='orders.html'"><i class="fa-solid fa-box-open"></i>
+                                    Orders</li>
+                                <li onclick="window.location.href='wishlist.html'"><i class="fa-regular fa-heart"></i>
+                                    Wishlist</li>
+                                <li onclick="window.location.href='seller.html'"><i class="fa-solid fa-store"></i>
+                                    Become a Seller</li>
+                                <li onclick="window.location.href='rewards.html'"><i class="fa-solid fa-gift"></i>
+                                    Rewards</li>
+                                <li onclick="window.location.href='gift-cards.html'"><i class="fa-solid fa-ticket"></i>
+                                    Gift Cards</li>
+                                <li onclick="window.location.href='notifications.html'"><i
+                                        class="fa-regular fa-bell"></i> Notification Preferences</li>
+                                <li onclick="window.location.href='support.html'"><i class="fa-solid fa-headset"></i>
+                                    24x7 Customer Care</li>
+                                <li onclick="window.location.href='advertise.html'"><i
+                                        class="fa-solid fa-chart-line"></i> Advertise</li>
+                                <li onclick="window.location.href='download-app.html'"><i
+                                        class="fa-solid fa-download"></i> Download App</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="header-item cart-toggle" id="cartToggle">
+                        <div class="cart-icon-wrapper">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-count">0</span>
+                        </div>
+                        <span>Cart</span>
+                    </div>
+                    <div class="header-item more-dropdown">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <span>More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expanded Category Menu Bar (Exact match) -->
+        <div class="category-wrapper">
+            <div class="category-bar">
+                <div class="cat-item active" data-filter="Grocery" onclick="document.getElementById('mainSearch').value=''; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-basket-shopping"></i></div>
+                    <span>All Grocery</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Staples'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-wheat-awn"></i></div>
+                    <span>Staples</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Snacks'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-cookie"></i></div>
+                    <span>Snacks</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Beverage'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-mug-hot"></i></div>
+                    <span>Beverages</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Packaged'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-box-open"></i></div>
+                    <span>Packaged Food</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Dairy'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-cow"></i></div>
+                    <span>Dairy & Eggs</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Personal'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-pump-soap"></i></div>
+                    <span>Personal Care</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Home Care'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-spray-can"></i></div>
+                    <span>Home Care</span>
+                </div>
+                <div class="cat-item" data-filter="Grocery" onclick="document.getElementById('mainSearch').value='Baby'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));">
+                    <div class="cat-icon-frame"><i class="fa-solid fa-baby-carriage"></i></div>
+                    <span>Baby Care</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Cart -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>My Cart</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-msg">Your cart is empty!</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total">
+                <span>Total Amount</span>
+                <span id="cartTotal">₹0.00</span>
+            </div>
+            <button class="checkout-btn">Place Order</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <main class="page-content">
+        <!-- Grocery Hero Section -->
+        <section class="grocery-hero"
+            style="max-width: 1600px; margin: 1rem auto 2rem; border-radius: 8px; height: 350px; background: linear-gradient(to right, #e8f5e9, #c8e6c9); display: flex; align-items: center; padding: 0 4rem; position: relative; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <div style="flex: 1; z-index: 2;">
+                <h1
+                    style="font-size: 3.5rem; color: #2e7d32; font-weight: 800; margin-bottom: 1rem; line-height: 1.1; letter-spacing: -1px;">
+                    Fresh Daily.<br>Delivered Fast.</h1>
+                <p style="font-size: 1.2rem; color: #1b5e20; margin-bottom: 2rem; font-weight: 500;">Get up to 50% flat
+                    discount on weekly staples & organic produce.</p>
+                <div style="display: flex; gap: 15px;">
+                    <button
+                        style="background: #fb641b; color: white; padding: 12px 30px; border: none; font-size: 1.1rem; font-weight: 700; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(251, 100, 27, 0.3);">Shop
+                        Supermart <i class="fa-solid fa-arrow-right"></i></button>
+                    <button
+                        style="background: white; border: 1px solid #2e7d32; color: #2e7d32; padding: 12px 30px; font-size: 1.1rem; font-weight: 700; border-radius: 4px; cursor: pointer;">View
+                        Deals</button>
+                </div>
+            </div>
+            <div style="flex: 1; text-align: right; z-index: 2; display: flex; justify-content: flex-end;">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1000&auto=format&fit=crop"
+                    style="width: 450px; height: 280px; object-fit: cover; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);"
+                    alt="Grocery Supermart">
+            </div>
+            <div
+                style="position: absolute; right: -50px; top: -50px; width: 400px; height: 400px; background: #a5d6a7; border-radius: 50%; opacity: 0.4; z-index: 1;">
+            </div>
+            <div
+                style="position: absolute; right: 350px; bottom: -80px; width: 200px; height: 200px; background: #81c784; border-radius: 50%; opacity: 0.3; z-index: 1;">
+            </div>
+        </section>
+
+        <script>
+            window.LIFOSS_PAGE_MODE = 'Grocery';
+        </script>
+
+        <!-- Product Listing -->
+        <section class="all-products-section" id="allProducts">
+            <div class="section-title-wrap">
+                <h2 id="currentCategoryTitle">All Products</h2>
+                <div class="sort-options">
+                    <span>Sort by</span>
+                    <select id="sortSelect">
+                        <option value="popularity">Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="products-grid" id="productGrid">
+                <!-- Products injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="mega-footer">
+        <div class="footer-sections">
+            <div class="footer-col">
+                <h4>ABOUT LIFOSS</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="about.html">About Us</a>
+                <a href="careers.html">Careers</a>
+            </div>
+            <div class="footer-col">
+                <h4>HELP</h4>
+                <a href="payments.html">Payments</a>
+                <a href="shipping.html">Shipping</a>
+                <a href="returns.html">Returns</a>
+            </div>
+            <div class="footer-col">
+                <h4>POLICY</h4>
+                <a href="#">Return Policy</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="footer-col">
+                <h4>SOCIAL</h4>
+                <div class="footer-social">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 LIFOSS | Life Operating System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Added to cart!</div>
+
+    <!-- Product Details Modal (Flipkart Style) -->
+    <div class="product-modal-overlay" id="productModal">
+        <div class="product-modal-container">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-content-split">
+                <div class="modal-left">
+                    <div class="modal-img-frame">
+                        <img id="modalImg" src="" alt="">
+                    </div>
+                    <div class="modal-actions">
+                        <button class="m-btn m-add-cart" id="modalAddToCart">ADD TO CART</button>
+                        <button class="m-btn m-buy-now">BUY NOW</button>
+                    </div>
+                </div>
+                <div class="modal-right">
+                    <nav class="breadcrumb">Home > <span id="modalCat">Category</span></nav>
+                    <h1 id="modalTitle">Product Title</h1>
+                    <div class="modal-rating-row">
+                        <span class="rating-badge" id="modalRating">4.8 <i class="fa-solid fa-star"></i></span>
+                        <span class="rating-count">1,540 Ratings & 204 Reviews</span>
+                    </div>
+                    <div class="modal-price-row">
+                        <span class="modal-price" id="modalPrice">₹49,999</span>
+                        <span class="m-strike">₹59,999</span>
+                        <span class="m-off">16% off</span>
+                    </div>
+
+                    <!-- Color Variants -->
+                    <div class="modal-section color-variants">
+                        <h3>Color</h3>
+                        <div class="color-options">
+                            <div class="color-circle active" style="background: #172337;" title="Midnight Blue"></div>
+                            <div class="color-circle" style="background: #b91d1d;" title="Ruby Red"></div>
+                            <div class="color-circle" style="background: #ddd;" title="Titanium Gray"></div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery & Services -->
+                    <div class="modal-section delivery-check">
+                        <h3>Delivery</h3>
+                        <div class="pincode-input">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <input type="text" id="pincodeCheck" placeholder="Enter Pincode">
+                            <button id="pincodeBtn">Check</button>
+                        </div>
+                        <p class="del-info">Delivery by <b>Thu, 11th Apr</b> | <span class="free">Free</span> <span
+                                class="strike">₹40</span></p>
+                    </div>
+
+                    <!-- Offers & EMI -->
+                    <div class="modal-offers">
+                        <h3>Available offers</h3>
+                        <p><i class="fa-solid fa-tag"></i> <b>Bank Offer</b> 10% instant discount on Cards, up to
+                            ₹1,500. <a href="#">T&C</a></p>
+                        <p><i class="fa-solid fa-tag"></i> <b>Bank Offer</b> 5% Cashback on LIFOSS Axis Bank Card. <a
+                                href="#">T&C</a></p>
+                        <p><i class="fa-solid fa-calendar-check"></i> <b>No Cost EMI</b> ₹2,450/month. Standard EMI also
+                            available. <a href="#">View Plans</a></p>
+                    </div>
+
+                    <!-- Product Highlights -->
+                    <div class="modal-section highlights">
+                        <h3>Highlights</h3>
+                        <ul id="modalHighlights">
+                            <li>8 GB RAM | 256 GB ROM</li>
+                            <li>17.02 cm (6.7 inch) Super Retina XDR Display</li>
+                            <li>48MP + 12MP + 12MP | 12MP Front Camera</li>
+                            <li>A17 Pro Chip, 6 Core Processor</li>
+                        </ul>
+                    </div>
+
+                    <!-- Ratings & Reviews (Detailed) -->
+                    <div class="modal-section rating-breakdown">
+                        <h3>Ratings & Reviews</h3>
+                        <div class="rating-grid">
+                            <div class="rating-overall">
+                                <div class="big-star">4.8 <i class="fa-solid fa-star"></i></div>
+                                <p>1,540 Ratings & 204 Reviews</p>
+                            </div>
+                            <div class="star-bars">
+                                <div class="s-bar"><span>5 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 80%"></div>
+                                    </div> <span>1,200</span>
+                                </div>
+                                <div class="s-bar"><span>4 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 15%"></div>
+                                    </div> <span>240</span>
+                                </div>
+                                <div class="s-bar"><span>3 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 3%"></div>
+                                    </div> <span>50</span>
+                                </div>
+                                <div class="s-bar"><span>2 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 1%"></div>
+                                    </div> <span>30</span>
+                                </div>
+                                <div class="s-bar"><span>1 ★</span>
+                                    <div class="bar-outer">
+                                        <div class="bar-inner" style="width: 1%"></div>
+                                    </div> <span>20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Section -->
+                    <div class="modal-section qa-section">
+                        <h3>Questions and Answers</h3>
+                        <div class="qa-item">
+                            <p class="q"><b>Q:</b> Is the charger included in the box?</p>
+                            <p class="a"><b>A:</b> No, only the USB-C cable is included as part of our sustainability
+                                initiative.</p>
+                        </div>
+                        <div class="qa-item">
+                            <p class="q"><b>Q:</b> Does it support 5G?</p>
+                            <p class="a"><b>A:</b> Yes, it supports all major 5G bands globally.</p>
+                        </div>
+                        <button class="all-qa-btn">View all questions</button>
+                    </div>
+
+                    <div class="modal-description">
+                        <h3>Product Description</h3>
+                        <p id="modalDesc">Full description goes here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Modal Overlay (Flipkart Style) -->
+    <div class="location-modal-overlay" id="locationModal">
+        <div class="location-modal-container">
+            <div class="loc-header">
+                <h2>Choose your Delivery Location</h2>
+                <button class="close-loc-modal" id="closeLocModal"
+                    onclick="document.getElementById('locationModal').style.display='none';">&times;</button>
+            </div>
+            <div class="loc-body">
+                <div class="loc-login-box" id="locLoginBox">
+                    <p>Select a delivery location to see product availability and delivery options</p>
+                    <button class="loc-login-btn" onclick="window.location.href='login.html'">Login to see your saved
+                        addresses</button>
+                </div>
+                <div class="loc-saved-box" id="locSavedBox" style="display: none;">
+                    <p
+                        style="font-weight: 600; color: #878787; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.8rem;">
+                        Saved Addresses</p>
+                    <div class="user-saved-loc" id="userSavedLocBox" onclick="selectSavedLocation()">
+                        <i class="fa-solid fa-house loc-icon"></i>
+                        <div>
+                            <p id="userSavedName" style="font-weight: 600; margin-bottom: 5px; color: #212121;"></p>
+                            <p id="userSavedAddress" style="font-size: 0.9rem; color: #878787; line-height: 1.4;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loc-divider">
+                    <div class="line"></div>
+                    <span>OR</span>
+                    <div class="line"></div>
+                </div>
+
+                <button class="loc-current-btn" id="locCurrentBtn">
+                    <i class="fa-solid fa-location-crosshairs"></i> Use my current location
+                </button>
+
+                <div class="loc-search">
+                    <input type="text" id="locSearchInput" placeholder="Search area, street, name, PIN code">
+                    <button id="locApplyBtn">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

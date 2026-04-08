@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | LIFOSS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="profile-body">
+    <style>
+        .profile-body { background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); background-size: 200% 200%; animation: gradientBG 15s ease infinite; font-family: 'Inter', sans-serif; min-height: 100vh; margin: 0; padding-bottom: 3rem; color: #212121; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .p-header { background: rgba(255,255,255,0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 30px rgba(0,0,0,0.05); border-bottom: 1px solid rgba(255,255,255,0.4); position: sticky; top: 0; z-index: 100; transition: 0.3s; }
+        .p-logo { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: #1e3a8a; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: -1px; }
+        .p-container { max-width: 1000px; margin: 4rem auto 0; padding: 0 2rem; }
+        .glass-panel { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 24px; padding: 3.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.05); position: relative; }
+        
+        .animated-header h1 { font-family: 'Outfit', sans-serif; font-size: 3rem; font-weight: 800; color: #111; letter-spacing: -1.5px; margin-bottom: 1.5rem; text-align: center; }
+        .content-section { margin-top: 2rem; line-height: 1.8; color: #444; font-size: 1.1rem; }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+        .feature-card { background: rgba(255,255,255,0.4); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(255,255,255,0.6); transition: 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.7); }
+        .feature-card i { font-size: 2.5rem; color: #3b82f6; margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; color: #111; }
+        
+        .nav-links { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem; }
+        .nav-link { color: #1e3a8a; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .nav-link:hover { color: #3b82f6; }
+    </style>
+
+    <header class="p-header">
+        <a href="index.html" class="p-logo"><i class="fa-solid fa-shapes"></i> LIFOSS</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+    </header>
+
+    <div class="p-container">
+        <div class="glass-panel">
+            <div class="animated-header">
+                <h1>Redefining Modern Living</h1>
+            </div>
+            
+            <div class="content-section">
+                <p>LIFOSS is more than just an e-commerce platform—it's a <strong>Life Operating System</strong>. Founded with the vision to simplify complexity, we curate premium products across fashion, electronics, and home essentials to elevate your everyday experience.</p>
+                <p>Our journey began with a simple question: How can we bridge the gap between world-class technology and the human touch? Today, we serve millions across the globe, providing a seamless, secure, and intuitive shopping environment.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Secure & Trusted</h3>
+                    <p>Advanced security protocols to keep your data safe.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                    <h3>Hyper Fast</h3>
+                    <p>Optimized logistics for lightning fast delivery.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-heart"></i>
+                    <h3>User Centric</h3>
+                    <p>Every feature designed with the customer in mind.</p>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="careers.html" class="nav-link">Careers</a>
+                <a href="support.html" class="nav-link">Customer Care</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.from(".glass-panel", { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" });
+            gsap.from(".feature-card", { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, delay: 0.4 });
+        });
+    </script>
+</body>
+</html>
