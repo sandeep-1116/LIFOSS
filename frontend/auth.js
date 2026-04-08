@@ -1,3 +1,5 @@
+const API_BASE_URL = window.location.origin;
+
 // Auth UI Toggling
 function toggleAuthMode(mode) {
     const loginForm = document.getElementById('loginForm');
@@ -47,7 +49,7 @@ async function requestOTP() {
     }
 
     try {
-        const res = await fetch('http://127.0.0.1:5000/api/forgot_password', {
+        const res = await fetch(`${API_BASE_URL}/api/forgot_password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: input, phone: input })
@@ -83,7 +85,7 @@ async function resetPasswordSubmit(e) {
     }
 
     try {
-        const res = await fetch('http://127.0.0.1:5000/api/reset_password', {
+        const res = await fetch(`${API_BASE_URL}/api/reset_password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: resetEmail, otp: otp, new_password: newPass })
@@ -122,7 +124,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     const errObj = document.getElementById('signupError');
 
     try {
-        const res = await fetch('http://127.0.0.1:5000/api/signup', {
+        const res = await fetch(`${API_BASE_URL}/api/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, phone, password })
@@ -152,7 +154,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const errObj = document.getElementById('loginError');
 
     try {
-        const res = await fetch('http://127.0.0.1:5000/api/login', {
+        const res = await fetch(`${API_BASE_URL}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, phone, password })
